@@ -1,4 +1,5 @@
-import CopyPlugin from "copy-webpack-plugin"
+const path = require('path')
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",  
@@ -15,11 +16,11 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: Path2D.resolve('src/manifest.json'), to: path.resolve('dist/') },
-        { from: Path2D.resolve('src/assets/icon-16.png'), to: path.resolve('dist/assets/icon-16.png') },
-        { from: Path2D.resolve('src/assets/icon-32.png'), to: path.resolve('dist/assets/icon-32.png') },
-        { from: Path2D.resolve('src/assets/icon-48.png'), to: path.resolve('dist/assets/icon-48.png') },
-        { from: Path2D.resolve('src/assets/icon-128.png'), to: path.resolve('dist/assets/icon-128.png') },
+        { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
+        { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/') },
+        { from: path.resolve('src/assets/icon-32.png'), to: path.resolve('dist/') },
+        { from: path.resolve('src/assets/icon-48.png'), to: path.resolve('dist/') },
+        { from: path.resolve('src/assets/icon-128.png'), to: path.resolve('dist/') },
       ],
     }),
   ],
