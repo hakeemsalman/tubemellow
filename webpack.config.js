@@ -28,13 +28,14 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: "Tube Mellow",
-      filename: 'popup.html'
+      filename: 'popup.html',
+      chunks: ['popup']
     })
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: { 
-    filename: "index.js"
+    filename: '[name].js'
   }
 }
