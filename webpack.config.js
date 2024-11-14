@@ -1,9 +1,12 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path')
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",  
-  entry: "/src/test.tsx",
+  entry: {
+    popup: path.resolve('src/popup/popup.tsx')
+  },
   module: {  
     rules: [
       {
@@ -23,6 +26,10 @@ module.exports = {
         { from: path.resolve('src/assets/icon-128.png'), to: path.resolve('dist/') },
       ],
     }),
+    new HtmlWebpackPlugin({
+      title: "Tube Mellow",
+      filename: 'popup.html'
+    })
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
