@@ -24,11 +24,7 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
-        { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/assets/') },
-        { from: path.resolve('src/assets/icon-32.png'), to: path.resolve('dist/assets/') },
-        { from: path.resolve('src/assets/icon-48.png'), to: path.resolve('dist/assets/') },
-        { from: path.resolve('src/assets/icon-128.png'), to: path.resolve('dist/assets/') },
+        { from: path.resolve('src/static'), to: path.resolve('dist/') },
       ],
     }),
     new HtmlWebpackPlugin({
