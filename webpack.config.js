@@ -1,4 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 const path = require('path')
 const CopyPlugin = require("copy-webpack-plugin");
 const tailwindcss = require('tailwindcss')
@@ -8,7 +8,8 @@ module.exports = {
   mode: "development",
   devtool: "cheap-module-source-map",
   entry: {
-    popup: path.resolve('src/popup/popup.tsx')
+    popup: path.resolve('src/popup/popup.tsx'),
+    options: path.resolve('src/options/options.tsx')
   },
   module: {
     rules: [
@@ -39,11 +40,9 @@ module.exports = {
         { from: path.resolve('src/static'), to: path.resolve('dist/') },
       ],
     }),
-    new HtmlWebpackPlugin({
-      title: "Tube Mellow",
-      filename: 'popup.html',
-      chunks: ['popup']
-    })
+    ...getHtmlPlugins(
+      ['popup', 'options']
+    )
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
@@ -52,5 +51,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
+}
 
+function getHtmlPlugins(chunks) {
+    return chunks.map((chunk) => new HtmlPlugin({
+      title: "Tube Mellow",
+      filename: `${chunk}.html`,
+      chunks: [chunk]
+    }))
 }

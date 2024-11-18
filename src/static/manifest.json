@@ -12,5 +12,6 @@
   "action":{
     "default_title" : "Tube Mellow",
     "default_popup": "popup.html"
-  }
+  },
+  "options_page": "options.html"
 }
