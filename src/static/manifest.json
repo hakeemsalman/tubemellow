@@ -4,10 +4,10 @@
   "description": "TubeMellow makes YouTube browsing smoother, distraction-free, and customized to your unique needs, offering a truly mellowed-out video experience.",
   "version": "0.0.1",
   "icons": {
-    "16": "assets/icon-16.png",   
-    "32": "assets/icon-32.png",  
-    "48": "assets/icon-48.png",  
-    "128": "assets/icon-128.png" 
+    "16": "icon-16.png",   
+    "32": "icon-32.png",  
+    "48": "icon-48.png",  
+    "128": "icon-128.png" 
   },
   "action":{
     "default_title" : "Tube Mellow",
