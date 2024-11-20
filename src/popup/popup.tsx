@@ -1,15 +1,22 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client'
+import React, { useState } from 'react';
 import "../assets/popup.css";
 
-const test = (
-  <div className="p-3 flex flex-col gap-3">
-    <h1 className="text-2xl text-white">Hello World</h1>
-    <p className="text-sm text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit iure animi culpa odio beatae est inventore, ratione impedit molestiae eligendi quam, optio voluptatem quo nihil rem qui, id earum alias?</p>
-  </div>
-)
+export default function Popup(){
 
-const container = document.createElement('div')
-document.body.appendChild(container)
-const root = createRoot(container)
-root.render(test)
+  const [isToggle, setisToggle] = useState<boolean>(false)
+
+  const handleToggle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.checked)
+    setisToggle(e.target.checked)
+  }
+  return (
+    <div className="p-3 flex flex-col gap-3">
+      <div className="relative inline-block w-11 h-5" >
+        <input checked={isToggle ? true : false} id="switch-component" onChange={handleToggle} type="checkbox" className="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-slate-800 cursor-pointer transition-colors duration-300" />
+        <label htmlFor="switch-component" className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer">
+        </label>
+      </div>
+      <h1 className="text-2xl text-white">Hello World</h1>
+    </div>
+  )
+}
