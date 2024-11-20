@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Tube Mellow",
+  "description": "TubeMellow makes YouTube browsing smoother, distraction-free, and customized to your unique needs, offering a truly mellowed-out video experience.",
+  "version": "0.2.1",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "permissions" : [
+    "tabs",
+    "bookmarks"
+  ],
+  "host_permissions" :[
+    "https://*.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Tube Mellow",
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "js": ["scripts/content_script.js"]
+    }
+  ]
+}
