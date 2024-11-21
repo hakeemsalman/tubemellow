@@ -23,7 +23,7 @@ export default defineConfig({
           dest: '.'
         },
         {
-          src: ['src/content_script.js', 'src/background.js'],
+          src: ['src/scripts/content_script.js', 'src/scripts/background.js'],
           dest: 'scripts/'
         }
       ]
