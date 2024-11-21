@@ -13,7 +13,8 @@ export default defineConfig({
             'src/static/icon-16.png',
             'src/static/icon-32.png',
             'src/static/icon-48.png',
-            'src/static/icon-128.png'
+            'src/static/icon-128.png',
+            'src/static/icon-16-disabled.png',
           ],
           dest: 'assets/'
         },
