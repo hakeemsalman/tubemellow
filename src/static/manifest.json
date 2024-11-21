@@ -10,10 +10,9 @@
     "128": "assets/icon-128.png"
   },
   "permissions" : [
-    "bookmarks",
-    "offscreen",
     "storage",
-    "tabs"
+    "tabs",
+    "activeTab"
   ],
   "host_permissions" :[
     "https://*.youtube.com/*"
