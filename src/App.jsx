@@ -1,47 +1,103 @@
-import { useState } from 'react'
-import './App.css'
-import { PowerIcon, SunIcon } from 'lucide-react'
-import Input from './components/Input'
-import Title from './components/Title'
-import Heading from './components/Heading'
-import Button from './components/Button'
+import { useState, useEffect } from 'react';
+import './App.css';
+import { PowerIcon } from 'lucide-react';
+import Input from './components/Input';
+import Title from './components/Title';
+import Heading from './components/Heading';
+import Button from './components/Button';
+
 function App() {
   const ytMapIds = [
     {
-      id: 'sections',
+      id: "tm--yt-home-feed",
+      title: "Hide Home Feed",
+      htmlId: "#primary ytd-rich-grid-renderer",
       checked: false
     },
     {
-      id: 'yt-tm-search-bar',
+      id: "tm--yt-comments",
+      title: "Hide Comments",
+      htmlId: "#comments",
       checked: false
     },
-  ]
-  const [isToggle, setisToggle] = useState(ytMapIds)
+    {
+      id: "tm--yt-title",
+      title: "Hide Video Title",
+      htmlId: "#title",
+      checked: false
+    },
+    {
+      id: "tm--yt-video-info",
+      title: "Hide Video Info",
+      htmlId: "#above-the-fold",
+      checked: false
+    },
+    {
+      id: "tm--yt-shorts",
+      title: "Hide Shorts",
+      htmlId: "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts]",
+      checked: false
+    },
+    {
+      id: "tm--yt-search-bar",
+      title: "Hide Search Bar",
+      htmlId: "#masthead-container",
+      checked: false
+    }
+  ];
 
-  const handleToggle = (e) => {
-    const { id, checked } = e.target;
+  const [isToggle, setisToggle] = useState();
+  const TM_STORAGE_KEY = 'tm--yt-storage-data'
+  useEffect(() => {
+    let data  = localStorage.getItem(TM_STORAGE_KEY) ;
+    setisToggle( () => {
+      return data ? JSON.parse(data) : localStorage.setItem(TM_STORAGE_KEY,JSON.stringify(ytMapIds));
+    })
+  },[])
+
+  // Handle toggle changes
+  const handleToggle = async (e) => {
+    const {id , checked} = e.target;
+    // Ensure `isToggle` is an array
+    if (!Array.isArray(isToggle)) {
+      console.error("isToggle is not a valid array:", isToggle);
+      return;
+    }
     const updatedToggle = isToggle.map((item) =>
       item.id === id ? { ...item, checked } : item
     );
+  
     setisToggle(updatedToggle);
-    console.log('updatedToggle', updatedToggle)
-    const singleToggleButton = updatedToggle.filter(item => item.id === id);
-    console.log("Updated toggle state:", singleToggleButton);
-    sendMessage(singleToggleButton);
+    await localStorage.setItem(TM_STORAGE_KEY, updatedToggle);
+  
+    // Find the single updated toggle item
+    const singleToggleButton = updatedToggle.find((item) => item.id === id);
+    if (singleToggleButton) {
+      sendMessage(singleToggleButton); // Wrap in an array as expected
+    } else {
+      console.error(`Item with id "${id}" not found in isToggle.`);
+    }
   };
 
+  
+
+  // Send message to the Chrome content script
   const sendMessage = (values) => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
       if (tabs[0]?.id) {
-        console.log("Sending message to content script:", { action: "modifyClass", toggle: values });
-       let wa = await chrome.tabs.sendMessage(
+        console.log('Sending message to content script:', {
+          action: 'modifyClass',
+          toggle: values,
+        });
+
+        await chrome.tabs.sendMessage(
           tabs[0].id,
-          { action: "modifyClass", toggle: values }, // Use passed `values`
+          { action: 'modifyClass', toggle: values },
           (response) => {
             if (chrome.runtime.lastError) {
-              console.error("Error in sendMessage:", chrome.runtime.lastError.message);
+              console.error('Error in sendMessage:', chrome.runtime.lastError.message);
             } else {
-              console.log("Response from content script:", response);
+              console.log('Response from content script:', response);
             }
           }
         );
@@ -50,27 +106,30 @@ function App() {
   };
 
   return (
-    <div className="p-3 flex flex-col gap-3 w-full ">
-      <nav className='flex flex-row justify-between'>
+    <div className="p-3 flex flex-col gap-3 w-full border-b-2">
+      <nav className="flex flex-row justify-between">
         <Title />
-        <div className='flex flex-row gap-2'>
+        <div className="flex flex-row gap-2">
           <Button>
             <PowerIcon size={20} />
           </Button>
         </div>
       </nav>
       <div>
-        <div className='flex flex-row gap-3 items-center'>
-          <Input onChange={handleToggle} isToggle={isToggle} id='sections' />
-          <Heading>Hide Home Feed</Heading>
-        </div>
-        <div className='flex flex-row gap-3 items-center'>
-          <Input onChange={handleToggle} isToggle={isToggle} id='yt-tm-search-bar' />
-          <Heading>Hide Search Bar</Heading>
-        </div>
+        {isToggle.map((item) => (
+          <div className="flex flex-row gap-3 items-center" key={item.id}>
+            <Input
+              onChange={handleToggle}
+              id={item.id}
+              isToggle={isToggle}
+              data={item.htmlId}
+            />
+            <Heading>{item.title}</Heading>
+          </div>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
