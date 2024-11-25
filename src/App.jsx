@@ -115,9 +115,6 @@ function App() {
             }
           }
         );
-        await chrome.runtime.sendMessage(
-          {greeting: "hello"}
-        );
       }
     });
   };
