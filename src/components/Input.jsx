@@ -1,12 +1,10 @@
 import React from 'react'
 
-export default function Input({ onChange, isToggle, id, data}) {
+export default function Input({ onChange, isChecked, id, data}) {
 
   const handleToggle = (e) => {
     onChange(e);
   }
-
-  const isChecked = isToggle.find(item => item.id === id)?.checked || false;
 
   return (
     <div className="relative inline-block w-11 h-5" >

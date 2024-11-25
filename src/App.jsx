@@ -41,20 +41,34 @@ function App() {
     {
       id: "tm--yt-search-bar",
       title: "Hide Search Bar",
-      htmlId: "#masthead-container",
+      htmlId: "#masthead-container, #chips-wrapper",
+      checked: false
+    },
+    {
+      id: "tm--yt-mix-video",
+      title: "Hide Mix",
+      htmlId: "ytd-rich-item-renderer #content yt-collections-stack, .yt-lockup-view-model-wiz__metadata",
       checked: false
     }
   ];
 
-  const [isToggle, setisToggle] = useState();
+  const [isToggle, setisToggle] = useState([]);
   const TM_STORAGE_KEY = 'tm--yt-storage-data'
+  
   useEffect(() => {
-    let data  = localStorage.getItem(TM_STORAGE_KEY) ;
-    setisToggle( () => {
-      return data ? JSON.parse(data) : localStorage.setItem(TM_STORAGE_KEY,JSON.stringify(ytMapIds));
-    })
-  },[])
-
+    const fetchData = async () => {
+        let data = localStorage.getItem(TM_STORAGE_KEY)
+     if (data) {
+        setisToggle(await JSON.parse(data)); // Parse stored JSON string
+      } else {
+        localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(ytMapIds));
+        setisToggle(ytMapIds);
+      } 
+    };
+  
+    fetchData();
+  }, []);
+  
   // Handle toggle changes
   const handleToggle = async (e) => {
     const {id , checked} = e.target;
@@ -68,7 +82,7 @@ function App() {
     );
   
     setisToggle(updatedToggle);
-    await localStorage.setItem(TM_STORAGE_KEY, updatedToggle);
+    await localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(updatedToggle));
   
     // Find the single updated toggle item
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
@@ -101,6 +115,9 @@ function App() {
             }
           }
         );
+        await chrome.runtime.sendMessage(
+          {greeting: "hello"}
+        );
       }
     });
   };
@@ -121,7 +138,7 @@ function App() {
             <Input
               onChange={handleToggle}
               id={item.id}
-              isToggle={isToggle}
+              isChecked={item.checked}
               data={item.htmlId}
             />
             <Heading>{item.title}</Heading>
