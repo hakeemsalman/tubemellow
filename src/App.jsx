@@ -5,73 +5,29 @@ import Input from './components/Input';
 import Title from './components/Title';
 import Heading from './components/Heading';
 import Button from './components/Button';
-
+import {initialData} from './static/tm--yt-json-data'
 function App() {
-  const ytMapIds = [
-    {
-      id: "tm--yt-home-feed",
-      title: "Hide Home Feed",
-      htmlId: "#primary ytd-rich-grid-renderer",
-      checked: false
-    },
-    {
-      id: "tm--yt-comments",
-      title: "Hide Comments",
-      htmlId: "#comments",
-      checked: false
-    },
-    {
-      id: "tm--yt-title",
-      title: "Hide Video Title",
-      htmlId: "#title",
-      checked: false
-    },
-    {
-      id: "tm--yt-video-info",
-      title: "Hide Video Info",
-      htmlId: "#above-the-fold",
-      checked: false
-    },
-    {
-      id: "tm--yt-shorts",
-      title: "Hide Shorts",
-      htmlId: "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts]",
-      checked: false
-    },
-    {
-      id: "tm--yt-search-bar",
-      title: "Hide Search Bar",
-      htmlId: "#masthead-container, #chips-wrapper",
-      checked: false
-    },
-    {
-      id: "tm--yt-mix-video",
-      title: "Hide Mix",
-      htmlId: "ytd-rich-item-renderer #content yt-collections-stack, .yt-lockup-view-model-wiz__metadata",
-      checked: false
-    }
-  ];
 
   const [isToggle, setisToggle] = useState([]);
   const TM_STORAGE_KEY = 'tm--yt-storage-data'
-  
+
   useEffect(() => {
     const fetchData = async () => {
-        let data = localStorage.getItem(TM_STORAGE_KEY)
-     if (data) {
+      let data = localStorage.getItem(TM_STORAGE_KEY)
+      if (data) {
         setisToggle(await JSON.parse(data)); // Parse stored JSON string
       } else {
-        localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(ytMapIds));
-        setisToggle(ytMapIds);
-      } 
+        localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(initialData));
+        setisToggle(initialData);
+      }
     };
-  
+
     fetchData();
   }, []);
-  
+
   // Handle toggle changes
   const handleToggle = async (e) => {
-    const {id , checked} = e.target;
+    const { id, checked } = e.target;
     // Ensure `isToggle` is an array
     if (!Array.isArray(isToggle)) {
       console.error("isToggle is not a valid array:", isToggle);
@@ -80,20 +36,20 @@ function App() {
     const updatedToggle = isToggle.map((item) =>
       item.id === id ? { ...item, checked } : item
     );
-  
+
     setisToggle(updatedToggle);
     await localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(updatedToggle));
-  
+
     // Find the single updated toggle item
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
     if (singleToggleButton) {
-      sendMessage(singleToggleButton); // Wrap in an array as expected
+      await sendMessage(singleToggleButton); // Wrap in an array as expected
     } else {
       console.error(`Item with id "${id}" not found in isToggle.`);
     }
   };
 
-  
+
 
   // Send message to the Chrome content script
   const sendMessage = (values) => {
@@ -104,13 +60,16 @@ function App() {
           toggle: values,
         });
 
-        await chrome.tabs.sendMessage(
+        chrome.tabs.sendMessage(
           tabs[0].id,
           { action: 'modifyClass', toggle: values },
           (response) => {
-            if (chrome.runtime.lastError) {
-              console.error('Error in sendMessage:', chrome.runtime.lastError.message);
-            } else {
+            if (chrome.tabs.lastError) {
+              console.error('Error in sendMessage:', chrome.tabs.lastError);
+            } else if(chrome.runtime.lastError){
+              console.error('error in sendMessage, runtime error:',chrome.runtime.lastError.message);
+              
+            }else {
               console.log('Response from content script:', response);
             }
           }
@@ -118,6 +77,7 @@ function App() {
       }
     });
   };
+
 
   return (
     <div className="p-3 flex flex-col gap-3 w-full border-b-2">
