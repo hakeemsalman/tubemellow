@@ -8,18 +8,31 @@ import Button from './components/Button';
 import {initialData} from './static/tm--yt-json-data'
 function App() {
 
-  const [isToggle, setisToggle] = useState([]);
+  const [isToggle, setisToggle] = useState(initialData); // map storage data
   const TM_STORAGE_KEY = 'tm--yt-storage-data'
-
   useEffect(() => {
     const fetchData = async () => {
-      let data = localStorage.getItem(TM_STORAGE_KEY)
-      if (data) {
-        setisToggle(await JSON.parse(data)); // Parse stored JSON string
-      } else {
-        localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(initialData));
-        setisToggle(initialData);
-      }
+      chrome.storage.local.get(TM_STORAGE_KEY, async (result) => {
+        console.log('result', result[TM_STORAGE_KEY])
+        if (result[TM_STORAGE_KEY]) {
+          console.log("Retrieved toggle state:");
+          setisToggle(await JSON.parse(result[TM_STORAGE_KEY]));
+        } else {
+          console.log("No toggle state found, applying default.");
+          // chrome.storage.local.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
+          chrome.storage.local.set({ [TM_STORAGE_KEY]: JSON.stringify(isToggle) }, () => {
+            if (chrome.runtime.lastError) {
+              console.error("Error updating storage:", chrome.runtime.lastError.message);
+            } else {
+              console.log("Storage updated successfully");
+            }
+          });          
+          chrome.storage.local.get(TM_STORAGE_KEY, (e)=>{
+            console.log('get data use effect', JSON.stringify(e));
+          })
+
+        }
+      });
     };
 
     fetchData();
@@ -38,7 +51,13 @@ function App() {
     );
 
     setisToggle(updatedToggle);
-    await localStorage.setItem(TM_STORAGE_KEY, await JSON.stringify(updatedToggle));
+    chrome.storage.local.set({ [TM_STORAGE_KEY]: JSON.stringify(updatedToggle) }, () => {
+      if (chrome.runtime.lastError) {
+        console.error("Error updating storage:", chrome.runtime.lastError.message);
+      } else {
+        console.log("Storage updated successfully");
+      }
+    }); 
 
     // Find the single updated toggle item
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
@@ -78,13 +97,17 @@ function App() {
     });
   };
 
+ const handleClick = (e) => {
+  console.log('first', e.target)
+  console.log('first', e)
+ }
 
   return (
-    <div className="p-3 flex flex-col gap-3 w-full border-b-2">
-      <nav className="flex flex-row justify-between">
+    <div className="p-3 flex flex-col gap-3 w-full">
+      <nav className="flex flex-row justify-between border-blue-400 border-b-2 pb-2">
         <Title />
         <div className="flex flex-row gap-2">
-          <Button>
+          <Button onClick={handleClick}>
             <PowerIcon size={20} />
           </Button>
         </div>
