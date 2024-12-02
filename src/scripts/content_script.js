@@ -2,13 +2,12 @@ const TM_STORAGE_KEY = 'tm--yt-storage-data'
 let storageData = [];
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log('inside content script')
+  /*
+  ** When User toggle the button, dom is updated
+  */
   if (request.action === 'modifyClass') {
-    console.log("Received toggle state in content script:", request.toggle);
-
     // Perform the action on the DOM
     const elements = document.querySelectorAll(request.toggle.htmlId);
-    console.log("Queried elements:", elements);
-
     if (elements.length > 0) {
       elements.forEach((element) => {
         if (request.toggle.checked) {
@@ -16,9 +15,9 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         } else {
           element.removeAttribute('hidden');
         }
-        if(request.toggle.id === 'tm--yt-search-bar'){
+        if (request.toggle.id === 'tm--yt-search-bar') {
           let pageManager = document.querySelector('#page-manager');
-          request.toggle.checked ? pageManager.style.marginTop = '0px': pageManager.style.removeProperty('margin-top');
+          request.toggle.checked ? pageManager.style.marginTop = '0px' : pageManager.style.removeProperty('margin-top');
         }
       });
 
@@ -27,58 +26,70 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       sendResponse({ success: false, error: "No elements matched the selector." });
     }
   }
+  if (request.action === 'updateDom') {
+    console.log("update dom listener");
+    await initializeScript();
+    sendResponse({ success: true, domStatus: 'updated' });
+  } else {
+    sendResponse({ success: false, domStatus: 'cannot updated' });
+  }
   return true; // Keep listener alive for async response
 });
 // Function to modify the DOM
 function modifyDOM(data) {
   console.log('Running modifyDOM with data:', data);
-
   data.forEach((item) => {
     const elements = document.querySelectorAll(item.htmlId);
     console.log('Queried elements:', elements);
-
     if (elements.length > 0) {
       elements.forEach((element) => {
-        if (request.toggle.checked) {
-          element.setAttribute('hidden', 'hidden');
+        if (item.checked) {
+          element.setAttribute('hidden', true);
         } else {
           element.removeAttribute('hidden');
+        }
+        if (item.id === 'tm--yt-search-bar') {
+          let pageManager = document.querySelector('#page-manager');
+          item.checked ? pageManager.style.marginTop = '0px' : pageManager.style.removeProperty('margin-top');
         }
       });
     }
   });
 }
-
 // Main function to handle DOM modifications
 async function initializeScript() {
-  console.log("DOM fully loaded, running YouTube modifier script");
-   chrome.storage.local.get(TM_STORAGE_KEY, (result) => {
-    console.log("content script Retrieved toggle state:", result.TM_STORAGE_KEY);
-    if (result.TM_STORAGE_KEY) {
-      storageData.push(result.TM_STORAGE_KEY);
-    } else {
-      console.log("No toggle state found, applying default.");
-    }
+  const result = await new Promise((resolve, reject) => {
+    chrome.storage.local.get(TM_STORAGE_KEY, (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result);
+      }
+    });
   });
-  if (!storageData) {
+  if (!result) {
     console.log('No data found in localStorage');
     return;
   }
 
   try {
-    const data = JSON.parse(storageData[0]);
+    console.log('result', result[TM_STORAGE_KEY])
+    const data = JSON.parse(result[TM_STORAGE_KEY]);
     if (!Array.isArray(data)) {
       console.error('Data is not an array:', data);
       return;
     }
 
     // Initial modification
-    modifyDOM(data);
+   
 
-    // Set up MutationObserver to handle dynamic content
+    //Set up MutationObserver to handle dynamic content
     const observer = new MutationObserver(() => {
-      console.log('Detected DOM change, reapplying modifications');
-      modifyDOM(data);
+      if (document.querySelector("#primary ytd-rich-grid-renderer") || document.querySelector("#primary ytd-item-section-renderer")) {
+        console.log("YouTube content is fully rendered");
+        modifyDOM(data);
+        observer.disconnect(); // Stop observing once the desired content is detected
+      }
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
@@ -87,5 +98,4 @@ async function initializeScript() {
   }
 }
 
-// Wait for DOMContentLoaded
-document.addEventListener("DOMContentLoaded", initializeScript);
+document.addEventListener("DOMContentLoaded", console.log('loaded'));

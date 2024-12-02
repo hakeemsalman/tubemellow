@@ -2,18 +2,18 @@ chrome.tabs.onActivated.addListener(() => {
   checkActiveTab();
 });
 
-chrome.tabs.onUpdated.addListener(() => {
-    checkActiveTab();
+chrome.tabs.onUpdated.addListener((tabId, info) => {
+  checkActiveTab(tabId);
+  checkPageLoad(tabId, info);
 });
 
 
 
-function checkActiveTab() {
+function checkActiveTab(tabId) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (tabs.length === 0) return;
 
     try {
-      console.log("Active tab details:", tabs[0]); // Debug the active tab's properties
       const activeTab = tabs[0];
       const url = activeTab.url || "";
 
@@ -25,6 +25,21 @@ function checkActiveTab() {
         chrome.action.disable();
       }
     } catch (error) {
+      console.error("Error checking active tab:", error);
+    }
+  });
+}
+function checkPageLoad(tabId, info) {
+  console.log('inside check page load')
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs.length === 0) return;
+    try {
+      if (info.status === 'complete' && tabId === tabs[0].id) {
+        console.log('inside info', info)
+        console.log('inside info', tabs[0])
+        chrome.tabs.sendMessage(tabs[0].id,{ action: 'updateDom'});
+      }
+    } catch (error){
       console.error("Error checking active tab:", error);
     }
   });
