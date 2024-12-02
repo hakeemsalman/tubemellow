@@ -13,12 +13,12 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       elements.forEach((element) => {
         if (request.toggle.checked) {
           element.setAttribute('hidden', true);
-          if(request.toggle.id === 'tm--yt-search-bar'){
-            let pageManager = document.querySelector('#page-manager');
-            pageManager.style.marginTop = '0px';
-          }
         } else {
           element.removeAttribute('hidden');
+        }
+        if(request.toggle.id === 'tm--yt-search-bar'){
+          let pageManager = document.querySelector('#page-manager');
+          request.toggle.checked ? pageManager.style.marginTop = '0px': pageManager.style.removeProperty('margin-top');
         }
       });
 
