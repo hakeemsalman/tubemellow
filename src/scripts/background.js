@@ -7,8 +7,6 @@ chrome.tabs.onUpdated.addListener((tabId, info) => {
   checkPageLoad(tabId, info);
 });
 
-
-
 function checkActiveTab(tabId) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (tabs.length === 0) return;
@@ -34,7 +32,7 @@ function checkPageLoad(tabId, info) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (tabs.length === 0) return;
     try {
-      if (info.status === 'complete' && tabId === tabs[0].id) {
+      if (info.status === 'complete' && tabId === tabs[0].id && tabs[0].url === "https://www.youtube.com/") {
         console.log('inside info', info)
         console.log('inside info', tabs[0])
         chrome.tabs.sendMessage(tabs[0].id,{ action: 'updateDom'});
