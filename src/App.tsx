@@ -2,13 +2,21 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { PowerIcon } from 'lucide-react';
 import Input from './components/Input';
-import Title from './components/Title';
-import Heading from './components/Heading';
-import Button from './components/Button';
-import {initialData} from './static/tm--yt-json-data'
+import {initialData} from './static/tm--yt-json-data.ts';
+import Heading from './components/Heading.js';
+import Button from './components/Button.js';
+import Title from './components/Title.js';
+
+type Item = {
+  id: string,
+  title: string,
+  htmlId:string,
+  checked: boolean
+}
+type isToggleJson = Item[]
 function App() {
 
-  const [isToggle, setisToggle] = useState(initialData); // map storage data
+  const [isToggle, setisToggle] = useState<isToggleJson>(initialData); // map storage data
   const TM_STORAGE_KEY = 'tm--yt-storage-data'
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +47,7 @@ function App() {
   }, []);
 
   // Handle toggle changes
-  const handleToggle = async (e) => {
+  const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target;
     // Ensure `isToggle` is an array
     if (!Array.isArray(isToggle)) {
@@ -62,42 +70,49 @@ function App() {
     // Find the single updated toggle item
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
     if (singleToggleButton) {
-      await sendMessage(singleToggleButton); // Wrap in an array as expected
-    } else {
-      console.error(`Item with id "${id}" not found in isToggle.`);
+      try {
+        const result = await sendMessage(singleToggleButton); // Await the promise returned by sendMessage
+        if (result) {
+          console.log('Message sent successfully');
+        } else {
+          console.log('Message no youtube failed');
+        }
+      } catch (error) {
+        console.error('Error in sendMessage in promise:', error);
+      }
     }
+    
   };
 
 
 
   // Send message to the Chrome content script
-  const sendMessage = (values) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
-      if (tabs[0]?.id) {
-        console.log('Sending message to content script:', {
-          action: 'modifyClass',
-          toggle: values,
-        });
-
-        chrome.tabs.sendMessage(
-          tabs[0].id,
-          { action: 'modifyClass', toggle: values },
-          (response) => {
-            if (chrome.tabs.lastError) {
-              console.error('Error in sendMessage:', chrome.tabs.lastError);
-            } else if(chrome.runtime.lastError){
-              console.error('error in sendMessage, runtime error:',chrome.runtime.lastError.message);
-              
-            }else {
-              console.log('Response from content script:', response);
+  const sendMessage = (values: Item): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]?.id && tabs[0].url?.includes('youtube.com')) {
+          chrome.tabs.sendMessage(
+            tabs[0].id,
+            { action: 'modifyClass', toggle: values },
+            (response) => {
+              if (chrome.runtime.lastError) {
+                console.error('Error in sendMessage method:', chrome.runtime.lastError);
+                reject(false); // Reject the promise on error
+              } else {
+                console.log('Response from content script:', response);
+                resolve(true); // Resolve the promise on success
+              }
             }
-          }
-        );
-      }
+          );
+        } else {
+          console.error('No active YouTube tab found');
+          reject(false); // Reject the promise if no valid tab is found
+        }
+      });
     });
   };
 
- const handleClick = (e) => {
+ const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   console.log('first', e.target)
   console.log('first', e)
  }
@@ -107,19 +122,19 @@ function App() {
       <nav className="flex flex-row justify-between border-blue-400 border-b-2 pb-2">
         <Title />
         <div className="flex flex-row gap-2">
-          <Button onClick={handleClick}>
+          <Button className='' onClick={handleClick}>
             <PowerIcon size={20} />
           </Button>
         </div>
       </nav>
       <div>
-        {isToggle.map((item) => (
+        {isToggle.map((item: Item) => (
           <div className="flex flex-row gap-3 items-center" key={item.id}>
             <Input
               onChange={handleToggle}
               id={item.id}
               isChecked={item.checked}
-              data={item.htmlId}
+              name={item.htmlId}
             />
             <Heading>{item.title}</Heading>
           </div>

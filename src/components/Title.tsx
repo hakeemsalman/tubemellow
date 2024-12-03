@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Title() {
   return (
     <div className='flex flex-row gap-3'>
