@@ -1,4 +1,4 @@
-const TM_STORAGE_KEY = 'tm--yt-storage-data'
+const K = 'tm--yt-storage-data'
 let storageData = [];
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log('inside content script')
@@ -59,7 +59,7 @@ function modifyDOM(data) {
 // Main function to handle DOM modifications
 async function initializeScript() {
   const result = await new Promise((resolve, reject) => {
-    chrome.storage.local.get(TM_STORAGE_KEY, (result) => {
+    chrome.storage.local.get(K, (result) => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       } else {
@@ -73,8 +73,8 @@ async function initializeScript() {
   }
 
   try {
-    console.log('result', result[TM_STORAGE_KEY])
-    const data = JSON.parse(result[TM_STORAGE_KEY]);
+    console.log('result', result[K])
+    const data = JSON.parse(result[K]);
     if (!Array.isArray(data)) {
       console.error('Data is not an array:', data);
       return;

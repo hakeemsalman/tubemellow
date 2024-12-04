@@ -1,0 +1,11 @@
+{
+  "yt": {
+    "homeFeed": "Startseite",
+    "searchBar": "Suchleiste ausblenden",
+    "videoInfo": "Videoinformationen ausblenden",
+    "videoTitle": "Videotitel ausblenden (im Vollbildmodus)",
+    "comments": "Kommentare ausblenden",
+    "recommandation": "Empfehlungen ausblenden",
+    "shorts": "Shorts ausblenden"
+  }
+}

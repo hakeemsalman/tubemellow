@@ -1,0 +1,11 @@
+{
+  "yt": {
+    "homeFeed": "Página principal",
+    "searchBar": "Ocultar barra de búsqueda",
+    "videoInfo": "Ocultar información del video",
+    "videoTitle": "Ocultar título del video (en pantalla completa)",
+    "comments": "Ocultar comentarios",
+    "recommandation": "Ocultar recomendaciones",
+    "shorts": "Ocultar Shorts"
+  }
+}
