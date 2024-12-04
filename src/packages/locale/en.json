@@ -1,0 +1,11 @@
+{
+  "yt": {
+    "homeFeed": "Home Feed",
+    "searchBar": "Hide Search Bar",
+    "videoInfo": "Hide Video Info",
+    "videoTitle": "Hide Video Title (in full-screen)",
+    "comments": "Hide Comments",
+    "recommandation": "Hide Recommandations",
+    "shorts": "Hide Shorts"
+  }
+}

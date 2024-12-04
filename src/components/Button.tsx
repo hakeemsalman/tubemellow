@@ -1,11 +1,12 @@
-type Props = {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode,
   className: string,
-  onClick: React.MouseEventHandler<HTMLButtonElement>
+  onClick: React.MouseEventHandler<HTMLButtonElement>,
+  id: string
 }
-export default function Button({children,className, onClick}: Props) {
+export default function Button({children,className, onClick,id, ...props}: Props) {
 
   return (
-    <button onClick={onClick} className={className}>{children}</button>
+    <button onClick={onClick} className={className} {...props} id={id}>{children}</button>
   )
 }
