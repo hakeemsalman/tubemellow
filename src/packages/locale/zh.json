@@ -1,22 +1,11 @@
 {
-  "common": {
-    "chat": "聊天",
-    "upvote": "赞成",
-    "downvote": "反对",
-    "report": "举报",
-    "nsfw": "不适合在工作场所观看",
-    "sfw": "适合在工作场所观看",
-    "default": "默认",
-    "cloud": "云",
-    "sendFeedback": "发送反馈",
-    "cancel": "取消",
-    "confirm": "确认",
-    "configure": "配置",
-    "prompt": "提示",
-    "delete": "删除",
-    "promptTemplate": "提示模板",
-    "storyString": "故事字符串",
-    "context": "上下文",
-    "rateLimited": "超过速率限制，请稍后再试"
+  "yt": {
+    "homeFeed": "隐藏主页动态",
+    "searchBar": "隐藏搜索栏",
+    "videoInfo": "隐藏视频信息",
+    "videoTitle": "隐藏视频标题（全屏时）",
+    "comments": "隐藏评论",
+    "recommandation": "隐藏推荐",
+    "shorts": "隐藏短视频"
   }
 }

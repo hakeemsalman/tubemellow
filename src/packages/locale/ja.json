@@ -1,22 +1,11 @@
 {
-  "common": {
-    "chat": "チャット",
-    "upvote": "賛成票",
-    "downvote": "反対票",
-    "report": "報告",
-    "nsfw": "NSFW",
-    "sfw": "SFW",
-    "default": "デフォルト",
-    "cloud": "クラウド",
-    "sendFeedback": "フィードバックを送る",
-    "cancel": "キャンセル",
-    "confirm": "確認する",
-    "configure": "設定",
-    "prompt": "プロンプト",
-    "delete": "削除",
-    "promptTemplate": "プロンプトテンプレート",
-    "storyString": "ストーリー文字列",
-    "context": "コンテキスト",
-    "rateLimited": "レート制限を超えました、後で再試行してください"
+  "yt": {
+    "homeFeed": "ホームフィードを非表示",
+    "searchBar": "検索バーを非表示",
+    "videoInfo": "動画情報を非表示",
+    "videoTitle": "動画タイトルを非表示（全画面時）",
+    "comments": "コメントを非表示",
+    "recommandation": "おすすめを非表示",
+    "shorts": "ショート動画を非表示"
   }
 }

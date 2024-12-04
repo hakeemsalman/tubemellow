@@ -1,22 +1,11 @@
 {
-  "common": {
-    "chat": "Chat",
-    "upvote": "Vota positivamente",
-    "downvote": "Vota negativamente",
-    "report": "Segnala",
-    "nsfw": "NSFW",
-    "sfw": "SFW",
-    "default": "Predefinito",
-    "cloud": "Nuvola",
-    "sendFeedback": "Invia feedback",
-    "cancel": "Annulla",
-    "confirm": "Conferma",
-    "configure": "Configura",
-    "prompt": "Prompt",
-    "delete": "Elimina",
-    "promptTemplate": "Modello di Prompt",
-    "storyString": "Storia Stringa",
-    "context": "Contesto",
-    "rateLimited": "Limite di velocità superato, si prega di riprovare più tardi"
+  "yt": {
+    "homeFeed": "Nascondi feed principale",
+    "searchBar": "Nascondi barra di ricerca",
+    "videoInfo": "Nascondi informazioni sul video",
+    "videoTitle": "Nascondi titolo del video (a schermo intero)",
+    "comments": "Nascondi commenti",
+    "recommandation": "Nascondi raccomandazioni",
+    "shorts": "Nascondi Shorts"
   }
 }
