@@ -4,6 +4,7 @@ import { Item } from "../utils/types";
 import { initialData, TM_STORAGE_KEY } from "../static/constants";
 import Toggle from "./Input";
 import Heading from "./Heading";
+import Tooltip from "./Tooltip";
 
 export default function HideController() {
   const [isToggle, setisToggle] = useState<Item[]>(initialData); // map storage data
@@ -84,12 +85,14 @@ export default function HideController() {
     <div>
       {isToggle.map((item: Item) => (
         <div className="flex flex-row gap-3 items-center" key={item.id}>
+          <Tooltip tooltip={item.checked ? 'ON' : 'OFF'}>
           <Toggle
             onChange={handleToggle}
             id={item.id}
             isChecked={item.checked}
             name={item.htmlId}
-          />
+            />
+            </Tooltip>
           <Heading>{t(`yt.${item.title}`)}</Heading>
         </div>
       ))}

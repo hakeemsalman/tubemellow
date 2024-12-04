@@ -11,14 +11,14 @@ function App() {
       <nav className="flex flex-row justify-between border-primary border-b-2 py-2 px-3">
         <Title />
         <div className="flex flex-row gap-2">
-          <LanguageSelector/>
+            <LanguageSelector />
         </div>
       </nav>
       <div className='px-3 py-2 flex flex-col h-full justify-start'>
-        <HideController/>
+        <HideController />
       </div>
       <div className='justify-end'>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
