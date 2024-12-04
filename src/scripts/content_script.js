@@ -58,6 +58,7 @@ function modifyDOM(data) {
 }
 // Main function to handle DOM modifications
 async function initializeScript() {
+  console.log('inside initialze script')
   const result = await new Promise((resolve, reject) => {
     chrome.storage.local.get(K, (result) => {
       if (chrome.runtime.lastError) {
@@ -74,9 +75,8 @@ async function initializeScript() {
 
   try {
     console.log('result', result[K])
-    const data = JSON.parse(result[K]);
-    if (!Array.isArray(data)) {
-      console.error('Data is not an array:', data);
+    if (!Array.isArray(result[K])) {
+      console.error('Data is not an array:', result[K]);
       return;
     }
 
@@ -87,7 +87,7 @@ async function initializeScript() {
     const observer = new MutationObserver(() => {
       if (document.querySelector("#primary ytd-rich-grid-renderer") || document.querySelector("#primary ytd-item-section-renderer")) {
         console.log("YouTube content is fully rendered");
-        modifyDOM(data);
+        modifyDOM(result[K]);
         observer.disconnect(); // Stop observing once the desired content is detected
       }
     });

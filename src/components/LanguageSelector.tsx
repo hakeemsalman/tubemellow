@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useState} from 'react'
-import { LANGUAGE_SELECTOR_ID, LANGUAGES } from '../static/constants'
+import { LANGUAGE_SELECTOR_ID, LANGUAGES, TM_LANG_KEY } from '../static/constants'
 import {useTranslation} from 'react-i18next'
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { Language } from '../utils/types'
 import Button from './Button'
 import { CheckCircle2} from 'lucide-react'
+
 
 interface FlagIconProps {
   className?: string
@@ -21,23 +22,22 @@ function FlagIcon({className, countryCode}: FlagIconProps) {
 
 interface Props {
   minimized: boolean,
-  handleLangProp: (l : Language)=> void
 }
 
-export const LanguageSelector = ({minimized, handleLangProp}: Props) => {
+export const LanguageSelector = ({minimized}: Props) => {
   const {i18n} = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | undefined>(LANGUAGES.find((language) => language.key === i18n.language));
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(LANGUAGES[0]);
 
-  const handleLang = (l: Language) => {
-    console.log('language selected', l);
-    handleLangProp(l);
-  }
   const handleLanguageChange = async (language: Language) => {
     await i18n.changeLanguage(language.key)
     setIsOpen(false);
-    setSelectedLanguage(language)
-    handleLang(language);
+    setSelectedLanguage(language);
+    chrome.storage.local.set({ [TM_LANG_KEY]: language }, () => {
+          if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError.message);
+          }
+        })
   }
 
   useEffect(() => {
@@ -49,6 +49,15 @@ export const LanguageSelector = ({minimized, handleLangProp}: Props) => {
       // Else we clicked outside the button, close the dropdown.
       setIsOpen(false)
     }
+    chrome.storage.local.get(TM_LANG_KEY, async (result) => {
+      console.log('TM_LANG_KEY:', result[TM_LANG_KEY])
+      if (result[TM_LANG_KEY]) {
+        console.log("Retrieved lang state:", result[TM_LANG_KEY]);
+        setSelectedLanguage(result[TM_LANG_KEY]);
+      } else {
+        console.log("No lang state found, applying default.");
+      }
+    });
     window.addEventListener('click', handleWindowClick)
     return () => {
       window.removeEventListener('click', handleWindowClick)

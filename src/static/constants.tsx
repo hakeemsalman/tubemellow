@@ -1,8 +1,8 @@
 import { Language } from "../utils/types";
 
 export const LANGUAGES: Language[] = [
-  { name: 'Deutsch', key: 'de', flagKey: 'de' },     // german
   { name: 'English', key: 'en', flagKey: 'gb' },     // english
+  { name: 'Deutsch', key: 'de', flagKey: 'de' },     // german
   { name: 'Español', key: 'es', flagKey: 'es' },     // spanish
   { name: 'Français', key: 'fr', flagKey: 'fr' },    // french
   { name: 'हिन्दी', key: 'hi', flagKey: 'in' },         // hindi

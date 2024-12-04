@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Input from './components/Input';
-import { initialData, TM_LANG_KEY } from './static/constants.tsx';
+import { initialData } from './static/constants.tsx';
 import Heading from './components/Heading.js';
 import Title from './components/Title.js';
-import { Item, Language } from './utils/types.tsx';
+import { Item } from './utils/types.tsx';
 import { LanguageSelector } from './components/LanguageSelector.tsx';
 import { TM_STORAGE_KEY } from './static/constants.tsx';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,6 @@ function App() {
   const [isToggle, setisToggle] = useState<Item[]>(initialData); // map storage data
   const [isMinimized] = useState<boolean>(false);
   const [t] = useTranslation();
-  const [_, setLangId] = useState<Language>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,16 +24,6 @@ function App() {
           setisToggle(result[TM_STORAGE_KEY]);
         } else {
           console.log("No toggle state found, applying default.");
-          // chrome.storage.local.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
-        }
-      });
-      chrome.storage.local.get(TM_LANG_KEY, async (result) => {
-        console.log('TM_LANG_KEY:', result[TM_LANG_KEY])
-        if (result[TM_LANG_KEY]) {
-          console.log("Retrieved lang state:", result[TM_LANG_KEY]);
-          setLangId(result[TM_LANG_KEY]);
-        } else {
-          console.log("No lang state found, applying default.");
           // chrome.storage.local.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
         }
       });
@@ -109,21 +98,13 @@ function App() {
     });
   };
 
-  const handleLang = async (lang: Language) => {
-    setLangId(lang);
-    chrome.storage.local.set({ [TM_LANG_KEY]: lang }, () => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError.message);
-      }
-    })
-  }
 
   return (
     <div className="p-3 flex flex-col gap-3 w-full">
       <nav className="flex flex-row justify-between border-blue-400 border-b-2 pb-2">
         <Title />
         <div className="flex flex-row gap-2">
-          <LanguageSelector handleLangProp={handleLang} minimized={isMinimized} />
+          <LanguageSelector minimized={isMinimized} />
         </div>
       </nav>
       <div>
