@@ -15,25 +15,11 @@ import zh from './zh.json'
 import uk from './uk.json'
 import sa from './sa.json'
 import ur from './ur.json'
-import {TM_LANG_KEY } from '../../static/constants'
+
 // When you add a new language, add it to scripts/localize.ts as well.
 // https://www.w3schools.com/tags/ref_language_codes.asp
 
-let DEFAULT_LANGUAGE = 'en';
-
-(()=>{
-  chrome.storage.local.get(TM_LANG_KEY, async (result) => {
-    console.log('TM_LANG_KEY:', result[TM_LANG_KEY])
-    if (result[TM_LANG_KEY]) {
-      console.log("Retrieved lang state:", result[TM_LANG_KEY]);
-      DEFAULT_LANGUAGE = result[TM_LANG_KEY].key;
-    } else {
-      console.log("No lang state found, applying default.");
-      // chrome.storage.local.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
-    }
-  });
-})
-
+const DEFAULT_LANGUAGE = 'en'
 
 i18n.use(initReactI18next).init({
   lng: DEFAULT_LANGUAGE, // Default language

@@ -50,17 +50,36 @@ const initialData = {
       flagKey: 'gb' 
     }
 }
+const injectedTabs = new Set(); // Track tabs where content script is injected
 const TM_LANG_KEY = 'tm--yt-lang-key'
 const TM_STORAGE_KEY = 'tm--yt-storage-data'
 const e = chrome, t = chrome.tabs, a = chrome.action, cn = console;
 t.onActivated.addListener(() => {
   c();
 });
-t.onUpdated.addListener((_,i) => {
+t.onUpdated.addListener((T, i, b) => {
   c();
-  return new Promise( async (resolve, reject) => { 
-    await l(i);
-   });
+  if (i.status === "complete" && b.url?.includes("youtube.com") && !injectedTabs.has(T)) {
+    cn.log("Tab updated, injecting content script and sending message");
+    chrome.scripting.executeScript(
+      { target: { tabId: T }, files: ["content_script.js"] },
+      () => {
+        setTimeout(() => {
+          chrome.tabs.sendMessage(
+            T,
+            { action: "updateDom" },
+            (response) => {
+              if (chrome.runtime.lastError) {
+                console.error("Error sending message:", chrome.runtime.lastError.message);
+              } else {
+                console.log("Response from content script:", response);
+              }
+            }
+          );
+        }, 500); // Adjust delay if necessary
+      }
+    );
+  }
 });
 function g(p) {
   return e.runtime.getURL(p);
@@ -82,44 +101,17 @@ function c() {
     }
   });
 }
-function l(i) {
-  cn.log('inside check page load')
-  t.query({ active: true, currentWindow: true }, (T) => {
-    if (T.length === 0) return;
-    try {
-      console.log('info',i)
-      if (i?.status === 'complete' && T[0]?.url?.includes('youtube.com')) {
-        console.log('now sending message')
-        chrome.tabs.sendMessage(
-          T[0].id,
-          { action: 'updateDom', toggle: 'updatedDom' },
-          (response) => {
-            if (chrome.runtime.lastError) {
-              console.error('Error in sendMessage method:', chrome.runtime.lastError);
-            } else {
-              console.log('Response from content script:', response);
-            }
-          }
-        );
-      }
-    } catch (er) {
-      cn.error("Error checking active tab:", er);
-    }
-  });
-}
+
 e.runtime.onInstalled.addListener(() => {
-  e.storage.local.set({ [TM_STORAGE_KEY]: initialData.options }, (result) => {
-    if (e.runtime.lastError) {
-      console.error('runtime error in background script while saving the data', e.runtime.lastError);
-    } else {
-      console.log('result on installed set key', result)
-    }
-  });
-  e.storage.local.set({ [TM_LANG_KEY]: initialData.lang }, (result) => {
-    if (e.runtime.lastError) {
-      console.error('runtime error in background script while saving the data', e.runtime.lastError);
-    } else {
-      console.log('result on installaed set lang', result);
-    }
+  e.runtime.onInstalled.addListener(() => {
+    // Initialize storage with default data only if not already set
+    chrome.storage.local.get([TM_STORAGE_KEY, TM_LANG_KEY], (storedData) => {
+      if (!storedData[TM_STORAGE_KEY]) {
+        chrome.storage.local.set({ [TM_STORAGE_KEY]: initialData.options });
+      }
+      if (!storedData[TM_LANG_KEY]) {
+        chrome.storage.local.set({ [TM_LANG_KEY]: initialData.lang });
+      }
+    });
   });
 })

@@ -54,6 +54,7 @@ export const LanguageSelector = ({minimized}: Props) => {
       if (result[TM_LANG_KEY]) {
         console.log("Retrieved lang state:", result[TM_LANG_KEY]);
         setSelectedLanguage(result[TM_LANG_KEY]);
+        await i18n.changeLanguage(result[TM_LANG_KEY].key)
       } else {
         console.log("No lang state found, applying default.");
       }
