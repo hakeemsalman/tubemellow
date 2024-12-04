@@ -19,11 +19,7 @@ export default defineConfig({
           dest: 'assets/'
         },
         {
-          src: 'src/static/manifest.json',
-          dest: '.'
-        },
-        {
-          src: ['src/scripts/content_script.js', 'src/scripts/background.js'],
+          src: ['src/scripts/content_script.js', 'src/scripts/background.js','src/static/manifest.json', 'src/scripts/constants.js'],
           dest: '.'
         }
       ]

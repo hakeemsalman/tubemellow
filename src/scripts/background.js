@@ -1,58 +1,7 @@
-const initialData = {
-  options: [
-    {
-      "id": "tm--yt-home-feed",
-      "title": "homeFeed",
-      "htmlId": "#primary ytd-rich-grid-renderer",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-search-bar",
-      "title": "searchBar",
-      "htmlId": "#masthead-container #masthead",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-video-info",
-      "title": "videoInfo",
-      "htmlId": "#above-the-fold",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-title",
-      "title": "videoTitle",
-      "htmlId": ".ytp-title .ytp-title-text",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-comments",
-      "title": "comments",
-      "htmlId": "#comments",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-recommandations",
-      "title": "recommandation",
-      "htmlId": "#columns #secondary",
-      "checked": false
-    },
-    {
-      "id": "tm--yt-shorts",
-      "title": "shorts",
-      "htmlId": "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts]",
-      "checked": false
-    },
-  ],
-  lang:
-    { 
-      name: 'English', 
-      key: 'en', 
-      flagKey: 'gb' 
-    }
-}
+import {ID} from './constants.js'
 const injectedTabs = new Set(); // Track tabs where content script is injected
-const TM_LANG_KEY = 'tm--yt-lang-key'
-const TM_STORAGE_KEY = 'tm--yt-storage-data'
+import { TS } from "./constants.js";
+import { TL } from "./constants.js";
 const e = chrome, t = chrome.tabs, a = chrome.action, cn = console;
 t.onActivated.addListener(() => {
   c();
@@ -105,12 +54,12 @@ function c() {
 e.runtime.onInstalled.addListener(() => {
   e.runtime.onInstalled.addListener(() => {
     // Initialize storage with default data only if not already set
-    chrome.storage.local.get([TM_STORAGE_KEY, TM_LANG_KEY], (storedData) => {
-      if (!storedData[TM_STORAGE_KEY]) {
-        chrome.storage.local.set({ [TM_STORAGE_KEY]: initialData.options });
+    chrome.storage.local.get([TS, TL], (storedData) => {
+      if (!storedData[TS]) {
+        chrome.storage.local.set({ [TS]: ID.o });
       }
-      if (!storedData[TM_LANG_KEY]) {
-        chrome.storage.local.set({ [TM_LANG_KEY]: initialData.lang });
+      if (!storedData[TL]) {
+        chrome.storage.local.set({ [TL]: ID.l });
       }
     });
   });

@@ -14,26 +14,25 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 // Function to modify the DOM
 async function modifyDOM(data) {
   data.forEach((item) => {
-    if (item.checked) {
-      console.log('inside modify dom data for each')
-      const elements = document.querySelectorAll(item.htmlId);
-      elements.forEach((element) => {
-        if (item.checked) {
-          element.setAttribute("hidden", true);
-        } else {
-          element.removeAttribute("hidden");
-        }
+    console.log('item', item)
+    console.log('inside modify dom data for each')
+    const elements = document.querySelectorAll(item.htmlId);
+    elements.forEach((element) => {
+      if (item.checked) {
+        element.setAttribute("hidden", true);
+      } else {
+        element.removeAttribute("hidden");
+      }
 
-        if (item.id === "tm--yt-search-bar") {
-          const pageManager = document.querySelector("#page-manager");
-          if (pageManager) {
-            item.checked
-              ? (pageManager.style.marginTop = "0px")
-              : pageManager.style.removeProperty("margin-top");
-          }
+      if (item.id === "tm--yt-search-bar") {
+        const pageManager = document.querySelector("#page-manager");
+        if (pageManager) {
+          item.checked
+            ? (pageManager.style.marginTop = "0px")
+            : pageManager.style.removeProperty("margin-top");
         }
-      });
-    }
+      }
+    });
   });
 }
 // Main function to handle DOM modifications
