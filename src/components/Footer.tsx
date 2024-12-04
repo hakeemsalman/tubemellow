@@ -1,6 +1,6 @@
 import { GlobeIcon, LightbulbIcon, MailsIcon } from "lucide-react";
-import { useState } from "react";
 import { FooterLinkProps } from "../utils/types";
+import Tooltip from "./Tooltip";
 
 export default function Footer() {
   return (
@@ -20,18 +20,15 @@ export default function Footer() {
 
 function FooterLink({ item, children }: FooterLinkProps) {
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="w-full flex justify-center">
-      {isOpen && <div data-tooltip="tooltip"
-        className="absolute z-50 bottom-10 whitespace-normal break-words rounded-lg bg-primary py-1 px-2 font-sans text-sm font-normal text-white focus:outline-none">
-        {item.tooltip}
-      </div>}
-      <a href={item.url} className="" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+     <Tooltip tooltip={item.tooltip}>
+      <a href={item.url} className="">
         <div itemType="button" data-ripple-light="true" data-tooltip-target="tooltip" >
           {children}
         </div>
       </a>
+     </Tooltip>
     </div>
   )
 }

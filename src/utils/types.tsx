@@ -18,3 +18,7 @@ export type FooterLinkProps = {
   children: React.ReactNode,
   item: {tooltip: string , url: string}
 }
+export type TooltipProps = {
+  children: React.ReactNode,
+  tooltip: string
+}
