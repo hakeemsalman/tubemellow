@@ -1,11 +1,6 @@
-type Props = {
-  id: string;
-  isChecked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Correct type for onChange
-  name: string;
-};
+import { ToggleProp } from "../utils/types";
 
-export default function Toggle({ onChange, isChecked, id, name}: Props) {
+export default function Toggle({ onChange, isChecked, id, name}: ToggleProp) {
 
   const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e);

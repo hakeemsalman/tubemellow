@@ -23,3 +23,10 @@ export type TooltipProps = {
   tooltip: string,
   direction?: string
 }
+
+export type ToggleProp = {
+  id: string;
+  isChecked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Correct type for onChange
+  name: string;
+};

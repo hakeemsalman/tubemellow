@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Item } from "../utils/types";
 import { initialData, TM_STORAGE_KEY } from "../static/constants";
-import Toggle from "./Input";
+import Toggle from "./Toggle";
 import Heading from "./Heading";
 import Tooltip from "./Tooltip";
 
@@ -83,8 +83,8 @@ export default function HideController() {
 
   return (
     <div>
-      {isToggle.map((item: Item) => (
-        <div className="flex flex-row gap-3 items-center" key={item.id}>
+      {isToggle.map((item: Item, index: number) => (
+        <div className={`flex flex-row gap-3 items-center`} key={item.id}>
           <Tooltip tooltip={item.checked ? 'ON' : 'OFF'}>
           <Toggle
             onChange={handleToggle}
