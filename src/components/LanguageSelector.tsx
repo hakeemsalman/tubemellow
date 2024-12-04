@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState} from 'react'
-import { LANGUAGE_SELECTOR_ID, LANGUAGES, TM_LANG_KEY } from '../static/constants'
+import { LANGUAGES, TM_LANG_KEY } from '../static/constants'
 import {useTranslation} from 'react-i18next'
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { Language } from '../utils/types'
@@ -20,11 +20,8 @@ function FlagIcon({className, countryCode}: FlagIconProps) {
   )
 }
 
-interface Props {
-  minimized: boolean,
-}
 
-export const LanguageSelector = ({minimized}: Props) => {
+export const LanguageSelector = () => {
   const {i18n} = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(LANGUAGES[0]);
@@ -41,14 +38,6 @@ export const LanguageSelector = ({minimized}: Props) => {
   }
 
   useEffect(() => {
-    const handleWindowClick = (event: any) => {
-      if (event.composedPath().some((element: any) => element.id === LANGUAGE_SELECTOR_ID)) {
-        // If we clicked inside the button, return.
-        return
-      }
-      // Else we clicked outside the button, close the dropdown.
-      setIsOpen(false)
-    }
     chrome.storage.local.get(TM_LANG_KEY, async (result) => {
       console.log('TM_LANG_KEY:', result[TM_LANG_KEY])
       if (result[TM_LANG_KEY]) {
@@ -59,26 +48,18 @@ export const LanguageSelector = ({minimized}: Props) => {
         console.log("No lang state found, applying default.");
       }
     });
-    window.addEventListener('click', handleWindowClick)
-    return () => {
-      window.removeEventListener('click', handleWindowClick)
-    }
   }, [])
-
-  if (!selectedLanguage) {
-    return null
-  }
 
   return (
     <>
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-2 flex flex-row justify-start mt-2 hover:bg-muted/50 hover:no-underline text-base ${minimized ? 'justify-center' : 'justify-start'} `}
-        id={LANGUAGE_SELECTOR_ID}
+        className={`w-full px-2 flex flex-row justify-start mt-2 hover:bg-muted/50 hover:no-underline text-base`}
+        id="language-selector"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
-        <FlagIcon countryCode={selectedLanguage.flagKey} className={`${minimized ? '' : 'mr-2'}`}/>
+        <FlagIcon countryCode={selectedLanguage.flagKey} />
       </Button>
       {isOpen && <div
         className="bg-white border border-white origin-top-right absolute right-2 top-14 w-40 rounded-md ring-1 ring-black ring-opacity-5"

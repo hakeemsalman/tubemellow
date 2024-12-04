@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 function App() {
 
   const [isToggle, setisToggle] = useState<Item[]>(initialData); // map storage data
-  const [isMinimized] = useState<boolean>(false);
   const [t] = useTranslation();
 
   useEffect(() => {
@@ -104,7 +103,7 @@ function App() {
       <nav className="flex flex-row justify-between border-blue-400 border-b-2 pb-2">
         <Title />
         <div className="flex flex-row gap-2">
-          <LanguageSelector minimized={isMinimized} />
+          <LanguageSelector/>
         </div>
       </nav>
       <div>

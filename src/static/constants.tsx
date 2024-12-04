@@ -1,4 +1,4 @@
-import { Language } from "../utils/types";
+import { Item, Language } from "../utils/types";
 
 export const LANGUAGES: Language[] = [
   { name: 'English', key: 'en', flagKey: 'gb' },     // english
@@ -14,11 +14,10 @@ export const LANGUAGES: Language[] = [
   { name: '简体中文', key: 'zh', flagKey: 'cn' },     // simplified chinese
 ]
 
-export const LANGUAGE_SELECTOR_ID = 'language-selector';
-export const TM_LANG_KEY = 'tm--yt-lang-key'
-export const TM_STORAGE_KEY = 'tm--yt-storage-data'
+export const TM_LANG_KEY: string = 'tm--yt-lang-key'
+export const TM_STORAGE_KEY: string = 'tm--yt-storage-data'
 
-export const initialData = [
+export const initialData: Item[] = [
   {
     "id": "tm--yt-home-feed",
     "title": "homeFeed",
