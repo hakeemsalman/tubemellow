@@ -1,7 +1,6 @@
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log("Message received in content script:", request);
   if (request.action === "updateDom") {
-    console.log("updateDom action triggered");
     await initializeScript();
     sendResponse({ success: true, domStatus: "updated" });
   } else if (request.action === "modifyClass") {
@@ -11,51 +10,42 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     sendResponse({ success: false });
   }
 });
-// Function to modify the DOM
 async function modifyDOM(data) {
   data.forEach((item) => {
-    console.log('item', item)
-    console.log('inside modify dom data for each')
     const elements = document.querySelectorAll(item.htmlId);
     elements.forEach((element) => {
-      if (item.checked) {
-        element.setAttribute("hidden", true);
-      } else {
-        element.removeAttribute("hidden");
-      }
-
+      item.checked ? element.setAttribute("hidden", true) :  element.removeAttribute("hidden");
       if (item.id === "tm--yt-search-bar") {
         const pageManager = document.querySelector("#page-manager");
+        const guide = document.querySelector("#guide #guide-spacer");
+        const chips = document.querySelector("#chips-wrapper");
         if (pageManager) {
-          item.checked
-            ? (pageManager.style.marginTop = "0px")
-            : pageManager.style.removeProperty("margin-top");
+          item.checked ? (pageManager.style.marginTop = "0px") : pageManager.style.removeProperty("margin-top");
+        }
+        if(guide){
+          item.checked ? (guide.style.marginTop = "0px") : guide.style.removeProperty("margin-top");
+        }
+        if(chips){
+          item.checked ? (chips.style.top = "0px") : chips.style.removeProperty("top");
         }
       }
     });
   });
 }
-// Main function to handle DOM modifications
 async function initializeScript() {
   const K = 'tm--yt-storage-data';
-  console.log("Initializing script...");
   const result = await chrome.storage.local.get(K);
   const options = result[K] || [];
-
   if (options.length > 0) {
     modifyDOM(options);
-
-    // Set up MutationObserver for dynamic content
     const observer = new MutationObserver(() => {
       if (document.querySelector("#primary ytd-rich-grid-renderer") || document.querySelector("#primary ytd-item-section-renderer")) {
-        console.log("Dynamic content detected, modifying DOM");
         modifyDOM(options);
         observer.disconnect(); // Stop observing once the desired content is detected
       }
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
   } else {
-    console.error("No data found in local storage.");
+    console.log("No data found in local storage.");
   }
 }

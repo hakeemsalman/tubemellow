@@ -19,10 +19,31 @@ export default defineConfig({
           dest: 'assets/'
         },
         {
-          src: ['src/scripts/content_script.js', 'src/scripts/background.js','src/static/manifest.json', 'src/scripts/constants.js'],
+          src: ['src/static/manifest.json'],
           dest: '.'
         }
       ]
-    })
+    }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        background: 'src/scripts/background.js',
+        content_script: 'src/scripts/content_script.js'
+      },
+      output: {
+        entryFileNames: '[name].js'
+      },
+    },
+    minify: 'terser',
+    terserOptions: {
+      // Terser configuration for background and content scripts
+      compress: {
+        drop_console: true,
+        dead_code: true
+      },
+      mangle: true,
+    }
+  },
 })

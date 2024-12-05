@@ -63,7 +63,7 @@ export const initialData: Item[] = [
   {
     "id": "tm--yt-shorts",
     "title": "shorts",
-    "htmlId": "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts]",
+    "htmlId": "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts], ytd-reel-shelf-renderer",
     "checked": false
   },
 ]

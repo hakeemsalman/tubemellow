@@ -9,23 +9,14 @@ t.onActivated.addListener(() => {
 t.onUpdated.addListener((T, i, b) => {
   c();
   if (i.status === "complete" && b.url?.includes("youtube.com") && !injectedTabs.has(T)) {
-    cn.log("Tab updated, injecting content script and sending message");
     chrome.scripting.executeScript(
       { target: { tabId: T }, files: ["content_script.js"] },
       () => {
         setTimeout(() => {
           chrome.tabs.sendMessage(
             T,
-            { action: "updateDom" },
-            (response) => {
-              if (chrome.runtime.lastError) {
-                console.error("Error sending message:", chrome.runtime.lastError.message);
-              } else {
-                console.log("Response from content script:", response);
-              }
-            }
-          );
-        }, 500); // Adjust delay if necessary
+            { action: "updateDom" },);
+        }, 300);
       }
     );
   }
@@ -50,10 +41,8 @@ function c() {
     }
   });
 }
-
 e.runtime.onInstalled.addListener(() => {
   e.runtime.onInstalled.addListener(() => {
-    // Initialize storage with default data only if not already set
     chrome.storage.local.get([TS, TL], (storedData) => {
       if (!storedData[TS]) {
         chrome.storage.local.set({ [TS]: ID.o });
