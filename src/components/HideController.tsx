@@ -83,7 +83,7 @@ export default function HideController() {
 
   return (
     <div>
-      {isToggle.map((item: Item, index: number) => (
+      {isToggle.map((item: Item) => (
         <div className={`flex flex-row gap-3 items-center`} key={item.id}>
           <Tooltip tooltip={item.checked ? 'ON' : 'OFF'}>
           <Toggle
