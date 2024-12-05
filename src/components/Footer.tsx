@@ -1,15 +1,15 @@
-import { GlobeIcon, LightbulbIcon, MailsIcon } from "lucide-react";
+import { BookLockIcon, GlobeIcon, MailsIcon } from "lucide-react";
 import { FooterLinkProps } from "../utils/types";
 import Tooltip from "./Tooltip";
 
 export default function Footer() {
   return (
     <div className="flex flex-row justify-around w-full border-primary border-t-2 py-2 ">
-      <FooterLink item={{ tooltip: "Mail", url: '#' }}>
+      <FooterLink item={{ tooltip: "Feedback", url: 'https://forms.gle/Ag5NxT8kaZGBq1ZZ6' }}>
         <MailsIcon />
       </FooterLink>
-      <FooterLink item={{ tooltip: "Feature Request", url: '#' }}>
-        <LightbulbIcon />
+      <FooterLink item={{ tooltip: "Privacy Policy", url: 'https://sites.google.com/view/tubemellow-privacy-policy/home' }}>
+        <BookLockIcon/>
       </FooterLink>
       <FooterLink item={{ tooltip: "Website", url: '#' }}>
         <GlobeIcon />

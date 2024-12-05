@@ -43,6 +43,12 @@ export const initialData: Item[] = [
     "checked": false
   },
   {
+    "id": "tm--yt-video-controllers",
+    "title": "videoController",
+    "htmlId": ".ytp-chrome-bottom",
+    "checked": false
+  },
+  {
     "id": "tm--yt-comments",
     "title": "comments",
     "htmlId": "#comments",

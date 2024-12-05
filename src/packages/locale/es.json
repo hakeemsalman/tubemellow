@@ -6,6 +6,7 @@
     "videoTitle": "Ocultar título del video (en pantalla completa)",
     "comments": "Ocultar comentarios",
     "recommandation": "Ocultar recomendaciones",
-    "shorts": "Ocultar Shorts"
+    "shorts": "Ocultar Shorts",
+    "videoController":"Ocultar botones del controlador de video"
   }
 }

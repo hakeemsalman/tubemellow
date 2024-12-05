@@ -6,6 +6,7 @@
     "videoTitle": "Masquer le titre de la vidéo (en plein écran)",
     "comments": "Masquer les commentaires",
     "recommandation": "Masquer les recommandations",
-    "shorts": "Masquer les Shorts"
+    "shorts": "Masquer les Shorts",
+    "videoController": "Masquer les boutons de contrôle vidéo"
   }
 }

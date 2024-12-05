@@ -6,6 +6,7 @@
     "videoTitle": "動画タイトルを非表示（全画面時）",
     "comments": "コメントを非表示",
     "recommandation": "おすすめを非表示",
-    "shorts": "ショート動画を非表示"
+    "shorts": "ショート動画を非表示",
+    "videoController": "ビデオコントローラーボタンを非表示にする"
   }
 }

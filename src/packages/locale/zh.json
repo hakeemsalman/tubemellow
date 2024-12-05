@@ -6,6 +6,7 @@
     "videoTitle": "隐藏视频标题（全屏时）",
     "comments": "隐藏评论",
     "recommandation": "隐藏推荐",
-    "shorts": "隐藏短视频"
+    "shorts": "隐藏短视频",
+    "videoController": "隐藏视频控制按钮"
   }
 }

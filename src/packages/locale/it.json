@@ -6,6 +6,7 @@
     "videoTitle": "Nascondi titolo del video (a schermo intero)",
     "comments": "Nascondi commenti",
     "recommandation": "Nascondi raccomandazioni",
-    "shorts": "Nascondi Shorts"
+    "shorts": "Nascondi Shorts",
+    "videoController": "Nascondi i pulsanti del controller video"
   }
 }

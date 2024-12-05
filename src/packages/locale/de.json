@@ -6,6 +6,7 @@
     "videoTitle": "Videotitel ausblenden (im Vollbildmodus)",
     "comments": "Kommentare ausblenden",
     "recommandation": "Empfehlungen ausblenden",
-    "shorts": "Shorts ausblenden"
+    "shorts": "Shorts ausblenden",
+    "videoController": "Videosteuerungstasten ausblenden"
   }
 }

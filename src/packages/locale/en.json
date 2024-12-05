@@ -6,6 +6,7 @@
     "videoTitle": "Hide Video Title (in full-screen)",
     "comments": "Hide Comments",
     "recommandation": "Hide Recommandations",
-    "shorts": "Hide Shorts"
+    "shorts": "Hide Shorts",
+    "videoController": "Hide video controller buttons"
   }
 }
