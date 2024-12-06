@@ -53,7 +53,7 @@ export const LanguageSelector = () => {
 
   return (
     <>
-      <Tooltip tooltip='Language' direction='right-5 top-7'>
+      <Tooltip tooltip='Language' direction='right-9 top-1'>
         <Button
           onClick={() => setIsOpen(!isOpen)}
           className={`w-full px-2 flex flex-row justify-start mt-2 hover:bg-muted/50 hover:no-underline text-base`}
