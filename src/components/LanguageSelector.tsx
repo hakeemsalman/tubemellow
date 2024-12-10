@@ -65,7 +65,7 @@ export const LanguageSelector = () => {
         </Button>
       </Tooltip>
       {isOpen && <div
-        className="bg-white border border-white origin-top-right absolute right-2 top-10 w-40 rounded-md ring-1 ring-black ring-opacity-5"
+        className="bg-white border border-white origin-top-right absolute z-10 right-2 top-10 w-40 rounded-md ring-1 ring-black ring-opacity-5"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="language-selector"
