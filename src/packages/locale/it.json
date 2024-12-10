@@ -7,6 +7,7 @@
     "comments": "Nascondi commenti",
     "recommandation": "Nascondi raccomandazioni",
     "shorts": "Nascondi Shorts",
-    "videoController": "Nascondi i pulsanti del controller video"
+    "videoController": "Nascondi i pulsanti del controller video",
+    "chapters": "Nascondi i capitoli del video"
   }
 }

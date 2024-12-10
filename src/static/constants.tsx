@@ -55,6 +55,12 @@ export const initialData: Item[] = [
     "checked": false
   },
   {
+    "id": "tm--yt-chapters",
+    "title": "chapters",
+    "htmlId": "#secondary #panels",
+    "checked": false
+  },
+  {
     "id": "tm--yt-recommandations",
     "title": "recommandation",
     "htmlId": "#columns #secondary",

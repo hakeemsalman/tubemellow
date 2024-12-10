@@ -7,6 +7,7 @@
     "comments": "隐藏评论",
     "recommandation": "隐藏推荐",
     "shorts": "隐藏短视频",
-    "videoController": "隐藏视频控制按钮"
+    "videoController": "隐藏视频控制按钮",
+    "chapters": "隐藏视频章节"
   }
 }

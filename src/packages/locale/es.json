@@ -7,6 +7,7 @@
     "comments": "Ocultar comentarios",
     "recommandation": "Ocultar recomendaciones",
     "shorts": "Ocultar Shorts",
-    "videoController":"Ocultar botones del controlador de video"
+    "videoController":"Ocultar botones del controlador de video",
+    "chapters": "Ocultar capítulos del video"
   }
 }

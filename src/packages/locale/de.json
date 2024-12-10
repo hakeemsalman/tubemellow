@@ -7,6 +7,7 @@
     "comments": "Kommentare ausblenden",
     "recommandation": "Empfehlungen ausblenden",
     "shorts": "Shorts ausblenden",
-    "videoController": "Videosteuerungstasten ausblenden"
+    "videoController": "Videosteuerungstasten ausblenden",
+    "chapters": "Videokapitel ausblenden"
   }
 }

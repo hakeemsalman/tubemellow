@@ -7,6 +7,7 @@
     "comments": "コメントを非表示",
     "recommandation": "おすすめを非表示",
     "shorts": "ショート動画を非表示",
-    "videoController": "ビデオコントローラーボタンを非表示にする"
+    "videoController": "ビデオコントローラーボタンを非表示にする",
+    "chapters": "ビデオチャプターを非表示にする"
   }
 }

@@ -7,6 +7,7 @@
     "comments": "Masquer les commentaires",
     "recommandation": "Masquer les recommandations",
     "shorts": "Masquer les Shorts",
-    "videoController": "Masquer les boutons de contrôle vidéo"
+    "videoController": "Masquer les boutons de contrôle vidéo",
+    "chapters": "Masquer les chapitres vidéo"
   }
 }
