@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Tube Mellow",
   "description": "TubeMellow makes YouTube browsing smoother, distraction-free, multi-lingual, and offers a mellowed-out video experience.",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "icons": {
     "16": "assets/icon-16.png",
     "32": "assets/icon-32.png",
