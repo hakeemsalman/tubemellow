@@ -1,4 +1,21 @@
-# React + TypeScript + Vite
+# Tube Mellow
+
+## Development
+
+1. To use `console.log(...)` for development, please change `drop_console : true` option to `false`.
+2. Run this command
+   1. ```bash
+      npm run dev
+      ```
+
+## Production
+
+1. Please change `drop_console : false` option to `true`.
+2. Run this command for build.
+   1. ```bash
+      npm run build
+      ```
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

@@ -30,3 +30,9 @@ export type ToggleProp = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Correct type for onChange
   name: string;
 };
+
+export type AccordionProps = {
+  title: string,
+  id: string,
+  children: React.ReactNode
+}
