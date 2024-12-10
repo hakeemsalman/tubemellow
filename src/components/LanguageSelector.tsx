@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { LANGUAGES, TM_LANG_KEY } from '../static/constants'
 import { useTranslation } from 'react-i18next'
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "/node_modules/flag-icons/sass/flag-icons.scss";
 import { Language } from '../utils/types'
 import Button from './Button'
 import { CheckCircle2 } from 'lucide-react'

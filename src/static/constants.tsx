@@ -14,6 +14,22 @@ export const LANGUAGES: Language[] = [
   { name: '简体中文', key: 'zh', flagKey: 'cn' },     // simplified chinese
 ]
 
+/**
+ * flags names in https://github.com/lipis/flag-icons/blob/HEAD/sass/_flag-icons-list.scss
+ *   @include flag-icon(gb);
+  @include flag-icon(de);
+  @include flag-icon(es);
+  @include flag-icon(fr);
+  @include flag-icon(in);
+  @include flag-icon(sa);
+  @include flag-icon(pk);
+  @include flag-icon(it);
+  @include flag-icon(jp);
+  @include flag-icon(ua);
+  @include flag-icon(cn);
+
+ */
+
 export const TM_LANG_KEY: string = 'tm--yt-lang-key'
 export const TM_STORAGE_KEY: string = 'tm--yt-storage-data'
 
