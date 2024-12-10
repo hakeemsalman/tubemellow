@@ -63,7 +63,7 @@ export const initialData: Item[] = [
   {
     "id": "tm--yt-recommandations",
     "title": "recommandation",
-    "htmlId": "#secondary #related.style-scope.ytd-watch-flexy",
+    "htmlId": "#secondary-inner>#related.style-scope.ytd-watch-flexy",
     "checked": false
   },
   {
