@@ -30,7 +30,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         background: 'src/scripts/background.js',
-        content_script: 'src/scripts/content_script.js'
+        content_script: 'src/scripts/content_script.tsx'
       },
       output: {
         entryFileNames: '[name].js'

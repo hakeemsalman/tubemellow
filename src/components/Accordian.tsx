@@ -1,6 +1,6 @@
 import { MinusIcon, PlusIcon } from "lucide-react"
 import { AccordionProps } from "../utils/types"
-import React, { useRef, useState } from "react"
+import { useRef, useState } from "react"
 import Button from "./Button";
 
 
@@ -9,7 +9,7 @@ export default function Accordian({ title, id, children }: AccordionProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null); // Reference to calculate content height dynamically
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggle = () => {
     setIsOpen((prev) => !prev);
   }
   return (
@@ -26,7 +26,7 @@ export default function Accordian({ title, id, children }: AccordionProps) {
       </Button>
       <div
         ref={contentRef}
-        className={`overflow-hidden transition-[max-height] duration-300 ease-in-out`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out`}
         style={{
           maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : "0",
         }}

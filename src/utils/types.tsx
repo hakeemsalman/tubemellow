@@ -36,3 +36,9 @@ export type AccordionProps = {
   id: string,
   children: React.ReactNode
 }
+
+declare global {
+export interface Window {
+    contentScriptInitialized?: boolean;
+  }
+}
