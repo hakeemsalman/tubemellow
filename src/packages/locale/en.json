@@ -12,7 +12,7 @@
   },
   "common" :{
     "yt_title": "Youtube Content",
-    "notes": "Notes"
+    "bookmark": "Saved Bookmarks"
   },
   "notes":{
     "notesTitle": "Open Notes"
