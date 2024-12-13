@@ -9,5 +9,12 @@
     "shorts": "Hide Shorts",
     "videoController": "Hide Video controller buttons",
     "chapters": "Hide Video Chapters"
+  },
+  "common" :{
+    "yt_title": "Youtube Content",
+    "notes": "Notes"
+  },
+  "notes":{
+    "notesTitle": "Open Notes"
   }
 }

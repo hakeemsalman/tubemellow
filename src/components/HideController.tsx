@@ -82,17 +82,17 @@ export default function HideController() {
 
 
   return (
-    <div>
+    <div className="py-2">
       {isToggle.map((item: Item) => (
-        <div className={`flex flex-row gap-3 items-center`} key={item.id}>
+        <div className={`flex flex-row gap-3 items-center px-2`} key={item.id}>
           <Tooltip tooltip={item.checked ? 'ON' : 'OFF'}>
-          <Toggle
-            onChange={handleToggle}
-            id={item.id}
-            isChecked={item.checked}
-            name={item.htmlId}
+            <Toggle
+              onChange={handleToggle}
+              id={item.id}
+              isChecked={item.checked}
+              name={item.htmlId}
             />
-            </Tooltip>
+          </Tooltip>
           <Heading>{t(`yt.${item.title}`)}</Heading>
         </div>
       ))}
