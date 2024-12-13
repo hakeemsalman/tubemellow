@@ -60,8 +60,13 @@ export const ID = {
       name: 'English', 
       key: 'en', 
       flagKey: 'gb' 
-    }
+    },
+  d:{
+    name: 'mode',
+    isDark: 'false'
+  }
 }
 
 export const TL = 'tm--yt-lang-key'
 export const TS = 'tm--yt-storage-data'
+export const TD = 'tm--yt-dark-mode'

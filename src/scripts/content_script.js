@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     await modifyDOM([request.toggle]);
     sendResponse({ success: true });
   } else if (request.action === 'dark') {
-    darkMode(request.toggle);
+    await darkMode(request.toggle);
     sendResponse({ success: true });
   } else {
     sendResponse({ success: false });
@@ -36,45 +36,46 @@ async function modifyDOM(data) {
   });
 }
 
-async function darkMode(mode) {
+async function darkMode(dark) {
   const styleId = 'youtube-theme-style';
   let styleDiv = document.getElementById(styleId);
+  document.getElementById('cinematics').setAttribute('hidden','true');
   if (!styleDiv) {
     styleTag = document.createElement('style');
     styleTag.id = styleId;
     document.head.appendChild(styleTag);
   }
-  if (mode === dark) {
+  if (dark) {
     styleTag.textContent = `
            html, body, #content, #container, .ytSearchboxComponentInputBoxDark, ytd-app {
-             background-color: #181818 !important;
+             background-color: #0f0f0f !important;
              color: #ffffff !important;
             }
             a, .yt-simple-endpoint, ytd-watch-metadata, #text, span, #video-title, .paper-input-input, .ytd-compact-link-renderer {
               color: #ffffff !important;
             }
             ytd-button-renderer{
-              background-color: #181818 !important;
+              background-color: #0f0f0f !important;
               color: #ffffff !important;
            }
            .ytSearchboxComponentSearchButton> yt-icon > .yt-icon-shape > div{
-            color: #000000 !important;
+            color: #0f0f0f !important;
           }
          `;
   } else {
     styleTag.textContent = `
            html, body, #content, #container, .ytSearchboxComponentInputBoxDark, ytd-app {
              background-color: #ffffff !important;
-             color: #181818 !important;
+             color: #0f0f0f !important;
             }
             a, .yt-simple-endpoint, ytd-watch-metadata, #text, span, #video-title, .paper-input-input, .ytd-compact-link-renderer {
-              color: #000000 !important;
+              color: #0f0f0f !important;
             }
             ytd-button-renderer{
               background-color: #ffffff !important;
-              color: #000000 !important;
+              color: #0f0f0f !important;
            }
-           .ytSearchboxComponentSearchButton> yt-icon > .yt-icon-shape > div{
+           .subscribe-button-shape, .ytSearchboxComponentSearchButton> yt-icon > .yt-icon-shape > div{
             color: #ffffff !important;
           }
          `;

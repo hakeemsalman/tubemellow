@@ -1,4 +1,4 @@
-import { Item, Language } from "../utils/types";
+import { Item, Language, ThemeMode } from "../utils/types";
 
 export const LANGUAGES: Language[] = [
   { name: 'English', key: 'en', flagKey: 'gb' },     // english
@@ -32,6 +32,12 @@ export const LANGUAGES: Language[] = [
 
 export const TM_LANG_KEY: string = 'tm--yt-lang-key'
 export const TM_STORAGE_KEY: string = 'tm--yt-storage-data'
+export const TM_DARK_KEY: string = 'tm--yt-dark-mode'
+
+export const THEME_MODE: ThemeMode={
+  name: 'dark',
+  isDark: false
+}
 
 export const initialData: Item[] = [
   {

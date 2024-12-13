@@ -1,4 +1,4 @@
-import { ID } from './constants.js'
+import { ID, TD } from './constants.js'
 const injectedTabs = new Set(); // Track tabs where content script is injected
 import { TS } from "./constants.js";
 import { TL } from "./constants.js";
@@ -44,4 +44,5 @@ function c() {
 e.runtime.onInstalled.addListener(() => {
     e.storage.local.set({ [TL]: ID.l });
     e.storage.local.set({ [TS]: ID.o });
+    e.storage.local.set({ [TD]: ID.d });
 })

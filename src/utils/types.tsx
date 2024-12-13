@@ -30,3 +30,8 @@ export type ToggleProp = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Correct type for onChange
   name: string;
 };
+
+export type ThemeMode={
+  name: string,
+  isDark: boolean
+}

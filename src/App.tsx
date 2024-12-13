@@ -3,6 +3,7 @@ import Title from './components/Title.js';
 import { LanguageSelector } from './components/LanguageSelector.tsx';
 import HideController from './components/HideController.tsx';
 import Footer from './components/Footer.tsx';
+import DarkMode from './components/DarkMode.tsx';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       </nav>
       <div className='px-3 py-2 flex flex-col h-full justify-start'>
         <HideController />
+        <DarkMode/>
       </div>
       <div className='justify-end'>
         <Footer />
