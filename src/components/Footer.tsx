@@ -1,4 +1,4 @@
-import { BookLockIcon, MailsIcon } from "lucide-react";
+import { BookLockIcon, HeartHandshakeIcon, MailsIcon } from "lucide-react";
 import { FooterLinkProps } from "../utils/types";
 import Tooltip from "./Tooltip";
 
@@ -11,9 +11,9 @@ export default function Footer() {
       <FooterLink item={{ tooltip: "Privacy Policy", url: 'https://sites.google.com/view/tubemellow-privacy-policy/home' }}>
         <BookLockIcon/>
       </FooterLink>
-      {/* <FooterLink item={{ tooltip: "Website", url: '#' }}>
-        <GlobeIcon />
-      </FooterLink> */}
+      <FooterLink item={{ tooltip: "Buy me a Coffee", url: 'https://buymeacoffee.com/hakeemsalman' }}>
+        <HeartHandshakeIcon />
+      </FooterLink>
     </div>
   )
 }
