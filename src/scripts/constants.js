@@ -63,5 +63,5 @@ export const ID = {
     }
 }
 
-export const TL = 'tm--yt-lang-key'
+export const TL = 'tm--yt-lang-data'
 export const TS = 'tm--yt-storage-data'

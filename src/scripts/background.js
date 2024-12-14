@@ -45,3 +45,7 @@ e.runtime.onInstalled.addListener(() => {
     e.storage.local.set({ [TL]: ID.l });
     e.storage.local.set({ [TS]: ID.o });
 })
+e.runtime.setUninstallURL('https://chromewebstore.google.com/detail/tube-mellow/fgflinjcolmfjdkilakkcgennlkhgkgh',() => {
+    e.storage.local.remove([TL]);
+    e.storage.local.remove([TS]);
+})

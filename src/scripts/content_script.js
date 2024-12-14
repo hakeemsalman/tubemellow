@@ -1,20 +1,47 @@
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log("Message received in content script:", request);
-  if (request.action === "updateDom") {
-    await initializeScript();
-    sendResponse({ success: true, domStatus: "updated" });
-  } else if (request.action === "modifyClass") {
-    await modifyDOM([request.toggle]);
-    sendResponse({ success: true });
-  } else {
-    sendResponse({ success: false });
+  switch (request.action) {
+    case 'updateDom':
+      await initializeScript();
+      sendResponse({ success: true, status: false });
+      break;
+    case 'modifyDom':
+      await modifyDOM([request.toggle]);
+      sendResponse({ success: true , status: false});
+      break;
+    case 'addBookmark':
+      console.log('inside switch addbookmark')
+      const result = await handleBookmark(request.toggle);
+      sendResponse({ success: true, status: result });
+      break;
+    default:
+      sendResponse({ success: false , status: false});
+      break;
   }
+  return false;
 });
+
+async function handleBookmark(tabs) {
+  let obj = {};
+  const title = document.querySelector('meta[name="title"]').content
+  const image = document.querySelector('meta[property="og:image"]').content
+  const channel = document.querySelector('#owner #channel-name>div>div>#text>a.yt-simple-endpoint').textContent
+  obj['title'] = title;
+  obj['image'] = image;
+  obj['channel'] = channel;
+  const urlParam = new URLSearchParams(tabs[0].url.split('?')[1])
+  obj['id'] = urlParam.get('v');
+  obj['checked'] = true;
+  obj['url'] = tabs[0].url
+  console.log('obj',obj)
+  return obj;
+}
+
 async function modifyDOM(data) {
   data.forEach((item) => {
     const elements = document.querySelectorAll(item.htmlId);
     elements.forEach((element) => {
-      item.checked ? element.setAttribute("hidden", true) :  element.removeAttribute("hidden");
+      item.checked ? element.setAttribute("hidden", true) : element.removeAttribute("hidden");
       if (item.id === "tm--yt-search-bar") {
         const pageManager = document.querySelector("#page-manager");
         const guide = document.querySelector("#guide #guide-spacer");
@@ -22,10 +49,10 @@ async function modifyDOM(data) {
         if (pageManager) {
           item.checked ? (pageManager.style.marginTop = "0px") : pageManager.style.removeProperty("margin-top");
         }
-        if(guide){
+        if (guide) {
           item.checked ? (guide.style.marginTop = "0px") : guide.style.removeProperty("margin-top");
         }
-        if(chips){
+        if (chips) {
           item.checked ? (chips.style.top = "0px") : chips.style.removeProperty("top");
         }
       }

@@ -30,8 +30,9 @@ export const LANGUAGES: Language[] = [
 
  */
 
-export const TM_LANG_KEY: string = 'tm--yt-lang-key'
+export const TM_LANG_KEY: string = 'tm--yt-lang-data'
 export const TM_STORAGE_KEY: string = 'tm--yt-storage-data'
+export const TM_BOOKMARK_KEY: string = 'tm--yt-bookmarks-data'
 
 export const initialData: Item[] = [
   {

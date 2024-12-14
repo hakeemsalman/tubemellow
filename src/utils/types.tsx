@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ChangeEvent, MouseEvent, MouseEventHandler } from "react"
 
 export type Language = {
   name: string,
@@ -39,8 +39,22 @@ export type AccordionProps = {
 
 export type Bookmark = {
   id: string,
+  url: string,
   title: string,
   channel: string,
-  isBookmark: boolean,
+  checked: boolean,
   image: string
+}
+
+export type BookmarkProps = {
+  bookmarkList: Bookmark[],
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+export type BookmarkCardProps = {
+  title: string,
+  channel: string,
+  image: string,
+  id: string,
+  url: string,
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

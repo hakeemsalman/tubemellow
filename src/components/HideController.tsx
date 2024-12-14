@@ -44,7 +44,7 @@ export default function HideController() {
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
     if (singleToggleButton) {
       try {
-        const result = await sendMessage(singleToggleButton); // Await the promise returned by sendMessage
+        const result = await sendMessage(singleToggleButton, 'modifyDom'); // Await the promise returned by sendMessage
         if (result) {
           console.log('Message sent successfully');
         } else {
