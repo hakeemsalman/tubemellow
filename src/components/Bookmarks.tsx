@@ -1,6 +1,9 @@
+import BookmarkCard from "./BookmarkCard";
 
 export default function Bookmarks() {
   return (
-    <div>Bookmarks</div>
+    <div>
+      <BookmarkCard/>
+    </div>
   )
 }

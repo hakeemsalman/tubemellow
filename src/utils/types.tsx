@@ -36,3 +36,11 @@ export type AccordionProps = {
   id: string,
   children: React.ReactNode
 }
+
+export type Bookmark = {
+  id: string,
+  title: string,
+  channel: string,
+  isBookmark: boolean,
+  image: string
+}
