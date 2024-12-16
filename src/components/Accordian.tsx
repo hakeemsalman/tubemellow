@@ -1,13 +1,12 @@
 import { MinusIcon, PlusIcon } from "lucide-react"
 import { AccordionProps } from "../utils/types"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import Button from "./Button";
 
 
 export default function Accordian({ title, id, children }: AccordionProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const contentRef = useRef<HTMLDivElement>(null); // Reference to calculate content height dynamically
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   }
@@ -23,13 +22,7 @@ export default function Accordian({ title, id, children }: AccordionProps) {
           {isOpen ? <MinusIcon size={16} /> : <PlusIcon size={16} />}
         </span>
       </Button>
-      <div
-        ref={contentRef}
-        className="overflow-hidden transition-all duration-300 ease-in-out bg-stone-50"
-        style={{
-          maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : "0",
-        }}
-      >
+      <div className={`${isOpen ? 'max-h-full' : 'max-h-0'} overflow-hidden transition-all duration-300 ease-in-out bg-stone-50`}>
         <span className="py-2">{children}</span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, MouseEventHandler } from "react"
+import React from "react"
 
 export type Language = {
   name: string,

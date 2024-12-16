@@ -7,9 +7,9 @@ import Accordian from './components/Accordian.tsx';
 import { useTranslation } from 'react-i18next';
 import Bookmarks from './components/Bookmarks.tsx';
 import Button from './components/Button.tsx';
-import React, { ButtonHTMLAttributes, ChangeEvent, MouseEvent, MouseEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bookmark } from './utils/types.tsx';
-import { getVideoId, sendMessage } from './utils/factory.tsx';
+import { getVideoId } from './utils/factory.tsx';
 import { TM_BOOKMARK_KEY } from './static/constants.tsx';
 
 function App() {
@@ -86,14 +86,14 @@ function App() {
   
   return (
     <div className="flex flex-col justify-between h-full w-full rounded-lg">
-      <nav className="flex flex-row justify-between border-primary border-b-2 py-2 px-3">
+      <nav className="flex flex-row justify-between py-2 px-3">
         <Title />
         <div className="flex flex-row gap-2">
           <LanguageSelector />
         </div>
       </nav>
-      <Button id='bookmark-btn' onClick={handleAddBookmark} disable={isBookmarked} className={`${isBookmarked ? 'bg-radial-pri-sec' : 'bg-reverse-radial-pri-sec'} px-3 py-1 text-sm text-white font-semibold`}>{isBookmarked ? 'Bookmarked' : 'Add to bookmark'}</Button>
-      <div className='px-3 py-2 flex flex-col h-full justify-start'>
+      <Button id='bookmark-btn' onClick={handleAddBookmark} disable={isBookmarked} className={`${isBookmarked ? 'bg-green-700' : 'bg-primary'} px-3 py-1 text-sm text-white font-semibold`}>{isBookmarked ? 'Bookmarked' : 'Add to bookmark'}</Button>
+      <div className='px-3 py-2 flex flex-col h-full justify-start scrollbar overflow-y-auto'>
         <Accordian title={t('common.yt_title')} id='youtube_content'>
           <HideController />
         </Accordian>
