@@ -92,7 +92,7 @@ function App() {
           <LanguageSelector />
         </div>
       </nav>
-      <Button id='bookmark-btn' onClick={handleAddBookmark} disable={isBookmarked} className={`${isBookmarked ? 'bg-green-400' : 'bg-primary'} px-3 py-1 text-sm text-white font-semibold`}>{isBookmarked ? 'Bookmarked' : 'Add to bookmark'}</Button>
+      <Button id='bookmark-btn' onClick={handleAddBookmark} disable={isBookmarked} className={`${isBookmarked ? 'bg-radial-pri-sec' : 'bg-reverse-radial-pri-sec'} px-3 py-1 text-sm text-white font-semibold`}>{isBookmarked ? 'Bookmarked' : 'Add to bookmark'}</Button>
       <div className='px-3 py-2 flex flex-col h-full justify-start'>
         <Accordian title={t('common.yt_title')} id='youtube_content'>
           <HideController />
