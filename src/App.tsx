@@ -28,7 +28,6 @@ function App() {
 
   const getCurrentBookmark = async (data: Bookmark[]) => {
     const videoId = await getVideoId();
-    console.log('videoId', videoId);
     const value = data.find(item => item.id === videoId)
     if (value) {
       setIsBookmarked(true)
@@ -37,19 +36,34 @@ function App() {
     }
   }
 
+  const convertJsonData = (data: any): Promise<Bookmark>=>{
+    return new Promise((resolve )=>{
+      const urlParam = new URLSearchParams(data.url.split('?')[1])
+      const id = urlParam.get('v') || '';
+      const obj:Bookmark = {
+        channel: data.author_name,
+        image: data.thumbnail_url,
+        title: data.title,
+        url: data.url,
+        id: id,
+        checked: true
+      };
+      resolve(obj);
+    })
+  }
   const handleAddBookmark = async () => {
     try {
-      const result = await sendMessage('', 'addBookmark');
+      // const result = await sendMessage('', 'addBookmark');
+      const videoId: string = await getVideoId();
+      const queryData: any = await fetch(`https://noembed.com/embed?dataType=json&url=https://www.youtube.com/watch?v=${videoId}`).then(res => res.json());
+      const result: Bookmark = await convertJsonData(queryData);
       console.log('result', result);
-
       if (result) {
         let updatedBookmarks: Bookmark[] = [];
         if (bookmarkList.length === 0) {
           updatedBookmarks = [result];
         } else {
-          updatedBookmarks = bookmarkList.map((item) =>
-            item.id !== result.id ? {...result} : item
-          );
+          updatedBookmarks = [...bookmarkList, result];
         }
         console.log('updatedBookmarks', updatedBookmarks)
         setBookmarkList(updatedBookmarks);

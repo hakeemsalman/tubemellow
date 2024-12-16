@@ -12,7 +12,7 @@ export default function BookmarkCard({title, channel,onClick, image, url, id}: B
           <img src={image} className="object-cover" alt="thumbnail" />
         </div>
         <div className="flex flex-col item-center justify-start">
-          <h6 className="text-sm">{title?.substring(0,32)+'...'}</h6>
+          <p className="text-xs">{title?.substring(0,40)+'...'}</p>
           <p className="text-xs text-gray-400">{channel}</p>
         </div>
       </a>

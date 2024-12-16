@@ -32,3 +32,23 @@ t.onUpdated.addListener((T, i, b) => {
     "windowId": 888645556
 }
 ```
+
+## noembed json data
+```json
+{
+    "thumbnail_height": 360,
+    "version": "1.0",
+    "url": "https://www.youtube.com/watch?v=ICcOOBsjVGE",
+    "width": 200,
+    "thumbnail_width": 480,
+    "provider_name": "YouTube",
+    "type": "video",
+    "height": 113,
+    "provider_url": "https://www.youtube.com/",
+    "html": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/ICcOOBsjVGE?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Omar Ibn Al Khattab (ra): His Leadership, His Legacy, His Death | The Firsts - Dr. Omar Suleiman\"></iframe>",
+    "author_name": "Yaqeen Institute",
+    "author_url": "https://www.youtube.com/@yaqeeninstituteofficial",
+    "thumbnail_url": "https://i.ytimg.com/vi/ICcOOBsjVGE/hqdefault.jpg",
+    "title": "Omar Ibn Al Khattab (ra): His Leadership, His Legacy, His Death | The Firsts - Dr. Omar Suleiman"
+}
+```
