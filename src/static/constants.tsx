@@ -33,7 +33,14 @@ export const LANGUAGES: Language[] = [
 export const TM_LANG_KEY: string = 'tm--yt-lang-data'
 export const TM_STORAGE_KEY: string = 'tm--yt-storage-data'
 export const TM_BOOKMARK_KEY: string = 'tm--yt-bookmarks-data'
+export const TM_EXTENSION_DATA_KEY: string = 'tm--yt-extension-data'
+export const TM_STORE_NAME: string = 'tm--yt-data'
 
+export const TM_LANGUAGE_DATA =  { 
+  name: 'English', 
+  key: 'en', 
+  flagKey: 'gb' 
+}
 export const initialData: Item[] = [
   {
     "id": "tm--yt-home-feed",

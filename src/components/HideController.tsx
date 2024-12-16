@@ -6,6 +6,7 @@ import Toggle from "./Toggle";
 import Heading from "./Heading";
 import Tooltip from "./Tooltip";
 import { sendMessage } from "../utils/factory";
+import { getFromStorage, saveToStorage } from "../utils/storageManager.tsx";
 
 export default function HideController() {
   const [isToggle, setisToggle] = useState<Item[]>(initialData); // map storage data
@@ -13,16 +14,19 @@ export default function HideController() {
 
   useEffect(() => {
     const fetchData = async () => {
-      chrome.storage.local.get(TM_STORAGE_KEY, async (result) => {
-        console.log('TM_STORAGE_KEY:', result[TM_STORAGE_KEY])
-        if (result[TM_STORAGE_KEY]) {
-          console.log("Retrieved toggle state:", result[TM_STORAGE_KEY]);
-          setisToggle(result[TM_STORAGE_KEY]);
+      try {
+        const result = await getFromStorage(TM_STORAGE_KEY)
+        console.log('TM_STORAGE_KEY:', result);
+        if (result) {
+          console.log("Retrieved toggle state:", result);
+          setisToggle(result);
         } else {
           console.log("No toggle state found, applying default.");
-          // chrome.storage.local.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
+          // chrome.storage.session.get(null, (result) => console.log(result)); //This will log all key-value pairs stored in `chrome.storage.local`.
         }
-      });
+      } catch (error) {
+        console.error("error in handling toggles",error)
+      }
     };
 
     fetchData();
@@ -34,13 +38,7 @@ export default function HideController() {
       item.id === id ? { ...item, checked } : item
     );
     setisToggle(updatedToggle);
-    chrome.storage.local.set({ [TM_STORAGE_KEY]: updatedToggle }, () => {
-      if (chrome.runtime.lastError) {
-        console.error("Error updating storage:", chrome.runtime.lastError.message);
-      } else {
-        console.log("Storage updated successfully");
-      }
-    });
+    await saveToStorage(TM_STORAGE_KEY, updatedToggle)
     const singleToggleButton = updatedToggle.find((item) => item.id === id);
     if (singleToggleButton) {
       try {

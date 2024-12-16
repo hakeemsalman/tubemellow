@@ -1,7 +1,6 @@
-import { ID } from './constants.js'
+import { saveToStorage, deleteFromStorage } from "../utils/storageManager.tsx";
+import { initialData, TM_BOOKMARK_KEY, TM_LANG_KEY, TM_LANGUAGE_DATA, TM_STORAGE_KEY } from '../static/constants.tsx';
 const injectedTabs = new Set(); // Track tabs where content script is injected
-import { TS } from "./constants.js";
-import { TL } from "./constants.js";
 const e = chrome, t = chrome.tabs, a = chrome.action, cn = console;
 t.onActivated.addListener(() => {
   c();
@@ -21,7 +20,7 @@ t.onUpdated.addListener((T, i, b) => {
     );
   }
 });
-function g(p) {
+function g(p: string) {
   return e.runtime.getURL(p);
 }
 function c() {
@@ -42,10 +41,11 @@ function c() {
   });
 }
 e.runtime.onInstalled.addListener(() => {
-    e.storage.local.set({ [TL]: ID.l });
-    e.storage.local.set({ [TS]: ID.o });
+    saveToStorage(TM_LANG_KEY, TM_LANGUAGE_DATA);
+    saveToStorage(TM_STORAGE_KEY, initialData);
 })
 e.runtime.setUninstallURL('https://chromewebstore.google.com/detail/tube-mellow/fgflinjcolmfjdkilakkcgennlkhgkgh',() => {
-    e.storage.local.remove([TL]);
-    e.storage.local.remove([TS]);
+    deleteFromStorage(TM_LANG_KEY);
+    deleteFromStorage(TM_STORAGE_KEY);
+    deleteFromStorage(TM_BOOKMARK_KEY);
 })

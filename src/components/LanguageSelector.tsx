@@ -8,6 +8,7 @@ import { Language } from '../utils/types'
 import Button from './Button'
 import { CheckCircle2 } from 'lucide-react'
 import Tooltip from './Tooltip';
+import { getFromStorage, saveToStorage } from '../utils/storageManager.tsx';
 
 
 interface FlagIconProps {
@@ -31,24 +32,22 @@ export const LanguageSelector = () => {
     await i18n.changeLanguage(language.key)
     setIsOpen(false);
     setSelectedLanguage(language);
-    chrome.storage.local.set({ [TM_LANG_KEY]: language }, () => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError.message);
-      }
-    })
+    await saveToStorage(TM_LANG_KEY, language);
   }
 
   useEffect(() => {
-    chrome.storage.local.get(TM_LANG_KEY, async (result) => {
-      console.log('TM_LANG_KEY:', result[TM_LANG_KEY])
-      if (result[TM_LANG_KEY]) {
-        console.log("Retrieved lang state:", result[TM_LANG_KEY]);
-        setSelectedLanguage(result[TM_LANG_KEY]);
-        await i18n.changeLanguage(result[TM_LANG_KEY].key)
+    const fetchData = async () => {
+      const result = await getFromStorage(TM_LANG_KEY)
+      console.log('TM_LANG_KEY:', result)
+      if (result) {
+        console.log("Retrieved lang state:", result);
+        setSelectedLanguage(result);
+        await i18n.changeLanguage(result.key)
       } else {
         console.log("No lang state found, applying default.");
       }
-    });
+    }
+    fetchData();
   }, [i18n])
 
   return (

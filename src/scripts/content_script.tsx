@@ -1,4 +1,8 @@
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+import { TM_STORAGE_KEY } from "../static/constants";
+import { getFromStorage } from "../utils/storageManager";
+import { Item } from "../utils/types";
+
+chrome.runtime.onMessage.addListener(async (request: any, _ ,sendResponse: (response: any) => void) => {
   console.log("Message received in content script:", request);
   switch (request.action) {
     case 'updateDom':
@@ -9,11 +13,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       await modifyDOM([request.toggle]);
       sendResponse({ success: true , status: false});
       break;
-    case 'addBookmark':
-      console.log('inside switch addbookmark')
-      const result = await handleBookmark(request.toggle);
-      sendResponse({ success: true, status: result });
-      break;
     default:
       sendResponse({ success: false , status: false});
       break;
@@ -21,31 +20,15 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   return false;
 });
 
-async function handleBookmark(tabs) {
-  let obj = {};
-  const title = document.querySelector('meta[name="title"]').content
-  const image = document.querySelector('meta[property="og:image"]').content
-  const channel = document.querySelector('#owner #channel-name>div>div>#text>a.yt-simple-endpoint').textContent
-  obj['title'] = title;
-  obj['image'] = image;
-  obj['channel'] = channel;
-  const urlParam = new URLSearchParams(tabs[0].url.split('?')[1])
-  obj['id'] = urlParam.get('v');
-  obj['checked'] = true;
-  obj['url'] = tabs[0].url
-  console.log('obj',obj)
-  return obj;
-}
-
-async function modifyDOM(data) {
+async function modifyDOM(data: Item[]) {
   data.forEach((item) => {
     const elements = document.querySelectorAll(item.htmlId);
     elements.forEach((element) => {
-      item.checked ? element.setAttribute("hidden", true) : element.removeAttribute("hidden");
+      item.checked ? element.setAttribute("hidden", "true") : element.removeAttribute("hidden");
       if (item.id === "tm--yt-search-bar") {
-        const pageManager = document.querySelector("#page-manager");
-        const guide = document.querySelector("#guide #guide-spacer");
-        const chips = document.querySelector("#chips-wrapper");
+        const pageManager  = document.querySelector("#page-manager") as HTMLElement;;
+        const guide = document.querySelector("#guide #guide-spacer") as HTMLElement;;
+        const chips = document.querySelector("#chips-wrapper") as HTMLElement;;
         if (pageManager) {
           item.checked ? (pageManager.style.marginTop = "0px") : pageManager.style.removeProperty("margin-top");
         }
@@ -60,9 +43,8 @@ async function modifyDOM(data) {
   });
 }
 async function initializeScript() {
-  const K = 'tm--yt-storage-data';
-  const result = await chrome.storage.local.get(K);
-  const options = result[K] || [];
+  const result = await getFromStorage(TM_STORAGE_KEY);
+  const options = result || [];
   if (options.length > 0) {
     modifyDOM(options);
     const observer = new MutationObserver(() => {

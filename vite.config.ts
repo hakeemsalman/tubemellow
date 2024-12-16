@@ -29,8 +29,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        background: 'src/scripts/background.js',
-        content_script: 'src/scripts/content_script.js'
+        background: 'src/scripts/background.tsx',
+        content_script: 'src/scripts/content_script.tsx'
       },
       output: {
         entryFileNames: '[name].js'
@@ -40,7 +40,7 @@ export default defineConfig({
     terserOptions: {
       // Terser configuration for background and content scripts
       compress: {
-        drop_console: true,
+        drop_console: false,
         dead_code: true
       },
       mangle: true,
