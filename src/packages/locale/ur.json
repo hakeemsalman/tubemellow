@@ -9,5 +9,11 @@
     "shorts": "شارٹس چھپائیں",
     "videoController": "ویڈیو کنٹرولر کے بٹن چھپائیں",
     "chapters": "ویڈیو کے ابواب چھپائیں"
+  },
+  "common" :{
+    "yt_title": "یوٹیوب مواد",
+    "savedBookmark": "محفوظ کردہ بُک مارکس",
+    "bookmarked" : "بک مارک کیا گیا",
+    "addToBookmark": "بک مارک میں شامل کریں"
   }
 }

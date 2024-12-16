@@ -9,5 +9,11 @@
     "shorts": "Приховати короткі відео",
     "videoController": "Приховати кнопки керування відео",
     "chapters": "Приховати розділи відео"
+  },
+  "common" :{
+    "yt_title": "Контент YouTube",
+    "savedBookmark": "Збережені закладки",
+    "bookmarked" : "Додано в закладки",
+    "addToBookmark": "Додати в закладки"
   }
 }

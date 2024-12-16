@@ -12,9 +12,8 @@
   },
   "common" :{
     "yt_title": "Youtube Content",
-    "bookmark": "Saved Bookmarks"
-  },
-  "notes":{
-    "notesTitle": "Open Notes"
+    "savedBookmark": "Saved Bookmarks",
+    "bookmarked" : "Bookmarked",
+    "addToBookmark": "Add to bookmark"
   }
 }

@@ -9,5 +9,11 @@
     "shorts": "Masquer les Shorts",
     "videoController": "Masquer les boutons de contrôle vidéo",
     "chapters": "Masquer les chapitres vidéo"
+  },
+  "common" :{
+    "yt_title": "Contenu YouTube",
+    "savedBookmark": "Signets enregistrés",
+    "bookmarked" : "Ajouté aux signets",
+    "addToBookmark": "Ajouter aux signets"
   }
 }
