@@ -9,5 +9,11 @@
     "shorts": "ショート動画を非表示",
     "videoController": "ビデオコントローラーボタンを非表示にする",
     "chapters": "ビデオチャプターを非表示にする"
+  },
+  "common" :{
+    "yt_title": "YouTubeコンテンツ",
+    "savedBookmark": "保存されたブックマーク",
+    "bookmarked" : "ブックマーク済み",
+    "addToBookmark": "ブックマークに追加"
   }
 }

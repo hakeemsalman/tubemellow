@@ -9,5 +9,11 @@
     "shorts": "隐藏短视频",
     "videoController": "隐藏视频控制按钮",
     "chapters": "隐藏视频章节"
+  },
+  "common" :{
+    "yt_title": "YouTube内容",
+    "savedBookmark": "已保存的书签",
+    "bookmarked" : "已加书签",
+    "addToBookmark": "添加到书签"
   }
 }

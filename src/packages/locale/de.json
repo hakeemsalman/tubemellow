@@ -9,5 +9,11 @@
     "shorts": "Shorts ausblenden",
     "videoController": "Videosteuerungstasten ausblenden",
     "chapters": "Videokapitel ausblenden"
+  },
+  "common" :{
+    "yt_title": "YouTube-Inhalte",
+    "savedBookmark": "Gespeicherte Lesezeichen",
+    "bookmarked" : "Lesezeichen gesetzt",
+    "addToBookmark": "Zum Lesezeichen hinzufügen"
   }
 }

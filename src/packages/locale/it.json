@@ -9,5 +9,11 @@
     "shorts": "Nascondi Shorts",
     "videoController": "Nascondi i pulsanti del controller video",
     "chapters": "Nascondi i capitoli del video"
+  },
+  "common" :{
+    "yt_title": "Contenuto YouTube",
+    "savedBookmark": "Segnalibri salvati",
+    "bookmarked" : "Aggiunto ai segnalibri",
+    "addToBookmark": "Aggiungi ai segnalibri"
   }
 }

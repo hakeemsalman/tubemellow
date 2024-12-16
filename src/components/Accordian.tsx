@@ -22,7 +22,7 @@ export default function Accordian({ title, id, children }: AccordionProps) {
           {isOpen ? <MinusIcon size={16} /> : <PlusIcon size={16} />}
         </span>
       </Button>
-      <div className={`${isOpen ? 'max-h-full' : 'max-h-0'} overflow-hidden transition-all duration-300 ease-in-out bg-stone-50`}>
+      <div className={`${isOpen ? 'max-h-full' : 'max-h-0'} overflow-hidden transition-all duration-300 ease-in-out`}>
         <span className="py-2">{children}</span>
       </div>
     </div>

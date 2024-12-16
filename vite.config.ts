@@ -40,7 +40,7 @@ export default defineConfig({
     terserOptions: {
       // Terser configuration for background and content scripts
       compress: {
-        drop_console: false,
+        drop_console: true,
         dead_code: true
       },
       mangle: true,
