@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import Button from './Button'
 import { Bookmark } from '../utils/types';
-import { getVideoId } from '../utils/factory';
-import { getFromStorage, saveToStorage } from '../utils/storageManager';
+import { getFromStorage, getVideoId, saveToStorage } from '../utils/factory';
 import { TM_BOOKMARK_KEY } from '../static/constants';
 import { useTranslation } from 'react-i18next';
 

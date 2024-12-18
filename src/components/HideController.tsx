@@ -5,8 +5,7 @@ import { initialData, TM_STORAGE_KEY } from "../static/constants";
 import Toggle from "./Toggle";
 import Heading from "./Heading";
 import Tooltip from "./Tooltip";
-import { sendMessage } from "../utils/factory";
-import { getFromStorage, saveToStorage } from "../utils/storageManager.tsx";
+import { getFromStorage, saveToStorage, sendMessage } from "../utils/factory";
 
 export default function HideController() {
   const [isToggle, setisToggle] = useState<Item[]>(initialData); // map storage data

@@ -25,6 +25,9 @@ export default defineConfig({
       ]
     }),
   ],
+  define: {
+    'global': {},
+  },
   build: {
     rollupOptions: {
       input: {

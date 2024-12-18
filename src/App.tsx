@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import Bookmarks from './components/Bookmarks.tsx';
 import React, { useEffect, useState } from 'react';
 import { Bookmark } from './utils/types.tsx';
-import { TM_BOOKMARK_KEY } from './static/constants.tsx';
-import { getFromStorage, saveToStorage } from './utils/storageManager.tsx';
+import { initialData, TM_BOOKMARK_KEY, TM_LANG_KEY, TM_LANGUAGE_DATA, TM_STORAGE_KEY } from './static/constants.tsx';
 import BookmarkButton from './components/BookmarkButton.tsx';
+import { getFromStorage, saveToStorage } from './utils/factory.tsx';
 
 function App() {
   const [t] = useTranslation();
@@ -20,6 +20,11 @@ function App() {
     const fetchNotes = async () => {
       try {
         const result = await getFromStorage(TM_BOOKMARK_KEY);
+        const localData = await getFromStorage(TM_STORAGE_KEY);
+        if(!localData){
+          saveToStorage(TM_STORAGE_KEY, initialData);
+          saveToStorage(TM_LANG_KEY,TM_LANGUAGE_DATA);
+        }
         console.log('bookmark data',result)
         if (result) {
           setBookmarkList(result);

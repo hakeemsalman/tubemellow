@@ -1,5 +1,71 @@
-import { saveToStorage, deleteFromStorage } from "../utils/storageManager.tsx";
-import { initialData, TM_BOOKMARK_KEY, TM_LANG_KEY, TM_LANGUAGE_DATA, TM_STORAGE_KEY } from '../static/constants.tsx';
+const ID = {
+  o: [
+    {
+      "id": "tm--yt-home-feed",
+      "title": "homeFeed",
+      "htmlId": "#primary ytd-rich-grid-renderer",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-search-bar",
+      "title": "searchBar",
+      "htmlId": "#masthead-container #masthead",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-video-info",
+      "title": "videoInfo",
+      "htmlId": "#above-the-fold",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-title",
+      "title": "videoTitle",
+      "htmlId": ".ytp-title .ytp-title-text",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-video-controllers",
+      "title": "videoController",
+      "htmlId": ".ytp-chrome-bottom",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-comments",
+      "title": "comments",
+      "htmlId": "#comments",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-chapters",
+      "title": "chapters",
+      "htmlId": "#secondary #panels",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-recommandations",
+      "title": "recommandation",
+      "htmlId": "#secondary #related.style-scope.ytd-watch-flexy",
+      "checked": false
+    },
+    {
+      "id": "tm--yt-shorts",
+      "title": "shorts",
+      "htmlId": "ytd-rich-section-renderer ytd-rich-shelf-renderer[is-shorts], ytd-reel-shelf-renderer",
+      "checked": false
+    },
+  ],
+  l:
+    { 
+      name: 'English', 
+      key: 'en', 
+      flagKey: 'gb' 
+    }
+}
+
+const TL = 'tm--yt-lang-key'
+const TS = 'tm--yt-storage-data'
+
 const injectedTabs = new Set(); // Track tabs where content script is injected
 const e = chrome, t = chrome.tabs, a = chrome.action, cn = console;
 t.onActivated.addListener(() => {
@@ -12,9 +78,9 @@ t.onUpdated.addListener((T, i, b) => {
       { target: { tabId: T }, files: ["content_script.js"] },
       () => {
         setTimeout(() => {
-          chrome.tabs.sendMessage(
-            T,
-            { action: "updateDom" },);
+            chrome.tabs.sendMessage(
+              T,
+              { action: "updateDom" },);
         }, 300);
       }
     );
@@ -40,12 +106,12 @@ function c() {
     }
   });
 }
+
 e.runtime.onInstalled.addListener(() => {
-    saveToStorage(TM_LANG_KEY, TM_LANGUAGE_DATA);
-    saveToStorage(TM_STORAGE_KEY, initialData);
+  e.storage.local.set({[TL]: ID.l});
+  e.storage.local.set({[TS]: ID.o});
 })
-e.runtime.setUninstallURL('https://chromewebstore.google.com/detail/tube-mellow/fgflinjcolmfjdkilakkcgennlkhgkgh',() => {
-    deleteFromStorage(TM_LANG_KEY);
-    deleteFromStorage(TM_STORAGE_KEY);
-    deleteFromStorage(TM_BOOKMARK_KEY);
-})
+
+
+e.runtime.setUninstallURL('https://chromewebstore.google.com/detail/tube-mellow/fgflinjcolmfjdkilakkcgennlkhgkgh')
+

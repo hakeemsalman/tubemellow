@@ -8,7 +8,7 @@ import { Language } from '../utils/types'
 import Button from './Button'
 import { CheckCircle2 } from 'lucide-react'
 import Tooltip from './Tooltip';
-import { getFromStorage, saveToStorage } from '../utils/storageManager.tsx';
+import { getFromStorage, saveToStorage } from '../utils/factory';
 
 
 interface FlagIconProps {
