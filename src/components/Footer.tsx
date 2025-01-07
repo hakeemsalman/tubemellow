@@ -11,7 +11,7 @@ export default function Footer() {
       <FooterLink item={{ tooltip: "Privacy Policy", url: 'https://sites.google.com/view/tubemellow-privacy-policy/home' }}>
         <BookLockIcon/>
       </FooterLink>
-      <FooterLink item={{ tooltip: "Buy me a Coffee", url: 'https://buymeacoffee.com/hakeemsalman' }}>
+      <FooterLink item={{ tooltip: "GitHub", url: 'https://github.com/hakeemsalman' }}>
         <HeartHandshakeIcon />
       </FooterLink>
     </div>
