@@ -1,10 +1,6 @@
 # TubeMellow - YouTube Chrome Extension
 
-<<<<<<< HEAD
 ![TubeMellow Logo](/src/static/icon-128.png)
-=======
-![TubeMellow Logo](https://via.placeholder.com/150)
->>>>>>> 156fa4c6ea8a795d969478e45930e452ca6f80c1
 
 TubeMellow is an open-source Chrome extension designed to enhance your YouTube browsing experience. With TubeMellow, you can:
 
