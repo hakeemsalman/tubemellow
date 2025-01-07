@@ -1,50 +1,104 @@
-# React + TypeScript + Vite
+# TubeMellow - YouTube Chrome Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TubeMellow Logo](/src/static/icon-128.png)
 
-Currently, two official plugins are available:
+TubeMellow is an open-source Chrome extension designed to enhance your YouTube browsing experience. With TubeMellow, you can:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Hide specific YouTube content for a clutter-free experience.
+- Save and manage your favorite YouTube bookmarks.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+### 1. Hide Unwanted Content
+Easily toggle the visibility of YouTube elements like:
+- Search bar
+- Side menu
+- Video recommendations
+- Home Feed
+- Shorts
+- And many more
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 2. Bookmark Your Favorites
+Save your favorite YouTube videos with a single click and access them anytime directly from the extension.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Usage
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Hide Content
+1. Open YouTube in your browser.
+2. Click on the TubeMellow extension icon.
+3. Select the elements you want to hide using the toggles.
+
+### Save Bookmarks
+1. Navigate to your favorite YouTube video.
+2. Click the "Add to Bookmark" button in the TubeMellow extension.
+3. Access saved bookmarks via the "Saved Bookmarks" section in the extension.
+
+---
+
+## Contributing
+
+We welcome contributions from the community! To contribute:
+
+1. Fork this repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
+---
+
+### Local development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/tubemellow.git
+   ```
+
+2. Open Chrome and navigate to `chrome://extensions/`.
+
+3. Enable **Developer mode** in the top-right corner.
+
+4. Click on **Load unpacked** and select the cloned `tubemellow` directory.
+
+5. TubeMellow will now appear in your extensions bar!
+
+---
+
+## Sponsor Us
+
+TubeMellow is a free and open-source project. If you find it useful, consider supporting us to help improve and maintain the extension:
+
+- [Sponsor on GitHub](https://github.com/sponsors/hakeemsalman)
+- [Buy Me a Coffee](https://www.buymeacoffee.com/hakeemsalman)
+
+Every contribution helps us keep TubeMellow awesome!
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Support
+
+If you have any questions, issues, or feature requests, feel free to:
+
+- Open an issue on GitHub.
+
+Happy browsing with TubeMellow! 🚀
+
